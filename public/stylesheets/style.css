@@ -747,6 +747,10 @@ video {
   background-size: cover;
 }
 
+.bg-center{
+  background-position: center;
+}
+
 .p-6{
   padding: 1.5rem;
 }
