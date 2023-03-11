@@ -48,6 +48,14 @@ app.use(function(req, res, next) {
   next();
 });
 
+// temporary routes to show site mockup
+app.get('/register', (req, res) => {
+    res.render('user/register');
+});
+app.get('/login', (req, res) => {
+    res.render('user/login');
+});
+
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));
