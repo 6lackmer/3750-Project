@@ -1,0 +1,51 @@
+<header class="bg-blend-multiply mx-auto w-full text-black bg-lime-900 text-stone-50 md:py-1">
+    <div class="container mx-auto flex flex-col md:flex-row flex-nowrap justify-between">
+        <div class="flex flex-row flex-nowrap justify-between content-center">
+            <h1 class="title text-2xl lg:text-3xl self-center mx-4 my-3">
+                <a href="/" class="hover:underline">FamCamp</a>
+            </h1>
+            <a href="/reservation" class="transition self-center font-bold uppercase
+                bg-yellow-300 hover:bg-yellow-500
+                text-stone-700 hover:text-stone-800
+                drop-shadow-md rounded-md px-5 py-3 m-2">New Reservation</a>
+        </div>
+        <div class="flex flex-row flex-nowrap content-center justify-center items-center gap-x-4 mx-3 my-2 md:my-0">
+            <div>
+                <a href="#" class="self-center hover:underline">Terms</a>
+            </div>
+            <div>
+                <a href="#" class="self-center hover:underline">Location</a>
+            </div>
+            <div>
+                <a href="#" class="self-center hover:underline">Contact</a>
+            </div>
+            <div class="relative">
+                <button id="nav-dropdown-button" class="inline-flex transition self-center items-center
+                        text-xs lg:text-sm font-bold uppercase
+                        bg-yellow-300 hover:bg-yellow-500
+                        text-stone-700 hover:text-stone-800
+                        drop-shadow-md rounded-md px-3 py-2">
+                    Welcome, Natalie
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
+                        class="w-4 h-4 ml-1 mt-1 -mr-1" aria-hidden="true">
+                        <path fill-rule="evenodd"
+                            d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                            clip-rule="evenodd"></path>
+                    </svg>
+                </button>
+                <div id="nav-dropdown" class="absolute hidden z-50 right-0 mt-1 origin-top-right w-40
+                        bg-white text-gray-800 rounded-md shadow-lg ring-1 
+                        ring-black ring-opacity-5 focus:outline-none">
+                    <div class="px-1 py-1">
+                        <a class="hover:bg-lime-600 hover:text-stone-50 flex rounded-md items-center w-full px-2 py-2 text-sm" href="/account" role="none">
+                            My Account
+                        </a>
+                        <a class="hover:bg-lime-600 hover:text-stone-50 flex rounded-md items-center w-full px-2 py-2 text-sm" href="/" role="none">
+                            Logout
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
