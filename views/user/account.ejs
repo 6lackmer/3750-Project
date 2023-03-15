@@ -1,0 +1,33 @@
+<%- include('../layout/header2'); %>
+
+<main class="container mx-auto md:my-8 lg:my-10 px-3 py-4">
+    <div class="max-w-5xl mx-auto bg-stone-50 rounded-lg drop-shadow px-10 py-8">
+        <dl class="">
+            <div class="flex flex-row justify-between mb-8">
+                <h2 class="subtitle text-5xl">My Account</h2>
+                <a href="/#" class="transition self-center text-xs lg:text-sm font-bold uppercase
+                                bg-lime-600 hover:bg-lime-800
+                                text-stone-50 hover:text-stone-100
+                                drop-shadow rounded-md px-3 py-2">Edit</a>
+            </div>
+            <div class="mt-2 mb-4 grid grid-cols-3 gap-3">
+                <dt class="text-stone-500">Name</dt>
+                <dd class="col-span-2">Natalie Mueller</dd>
+            </div>
+            <div class="mt-2 mb-4 grid grid-cols-3 gap-3">
+                <dt class="text-stone-500">Email address</dt>
+                <dd class="col-span-2">nataliemueller@mail.weber.edu</dd>
+            </div>
+            <div class="mt-2 mb-4 grid grid-cols-3 gap-3">
+                <dt class="text-stone-500">Military affiliation</dt>
+                <dd class="col-span-2">Area 51</dd>
+            </div>
+            <div class="mt-2 mb-4 grid grid-cols-3 gap-3">
+                <dt class="text-stone-500">Status</dt>
+                <dd class="col-span-2">Dishonorably discharged</dd>
+            </div>
+        </dl>
+    </div>
+</main>
+
+<%- include('../layout/footer'); %>
