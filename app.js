@@ -55,11 +55,20 @@ app.use(function(req, res, next) {
 //app.use('/register', registerRouter);
 
 // temporary routes to show site mockup
+app.get('/index2', (req, res) => {
+    res.render('index2');
+});
 app.get('/register', (req, res) => {
     res.render('user/register');
 });
 app.get('/login', (req, res) => {
     res.render('user/login');
+});
+app.get('/account', (req, res) => {
+    res.render('user/account');
+});
+app.get('/reservation', (req, res) => {
+    res.render('reservation');
 });
 
 // catch 404 and forward to error handler

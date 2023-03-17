@@ -1,31 +1,30 @@
 <%- include('../layout/header'); %>
 
-    <div class="flex-grow bg-cover bg-center p-16" style="background-image: url('/images/playground.jpg');">
-        <main class="container mx-auto flex flex-row flex-nowrap justify-center">
-            <div class="bg-stone-50 rounded-lg p-16">
-                <h2 class="subtitle text-5xl">Continue your adventure.</h2>
-                <p class="mt-2 mb-4">
-                    Log in to your account and reserve your stay today!
-                </p>
-                <div>
-                    <div class="mb-3">
-                        <label class="block text-base text-stone-500">Email address</label>
-                        <input class="w-full block border-2 rounded-md py-1 px-2" type="email" id="email" name="email" />
-                    </div>
-                    <div class="mb-3">
-                        <label class="block text-base text-stone-500">Password</label>
-                        <input class="w-full block border-2 rounded-md py-1 px-2" type="password" id="password" name="password" />
-                    </div>
+<div class="flex-grow bg-cover bg-center p-4" style="background-image: url('/images/playground.jpg');">
+    <main class="container mx-auto md:my-8 lg:my-10 px-3 py-4">
+        <div class="max-w-xl mx-auto bg-stone-50 rounded-lg drop-shadow-lg p-16">
+            <h2 class="subtitle text-5xl">Continue your adventure.</h2>
+            <p class="mt-2 mb-4">
+                Log in to your account and reserve your stay today!
+            </p>
+            <div>
+                <div class="mb-3">
+                    <label class="block text-base text-stone-500">Email address</label>
+                    <input class="w-full block border-2 rounded-md py-1 px-2" type="email" id="email" name="email" />
                 </div>
-                <div class="mt-6 text-center">
-                    <button class="transition self-center text-xs lg:text-sm font-bold uppercase
-                            bg-lime-600 hover:bg-lime-800
-                            text-stone-50 hover:text-stone-100
-                            drop-shadow-md rounded-md px-3 py-2">Login</button>
+                <div class="mb-3">
+                    <label class="block text-base text-stone-500">Password</label>
+                    <input class="w-full block border-2 rounded-md py-1 px-2" type="password" id="password" name="password" />
                 </div>
             </div>
-        </main>
-    </div>
+            <div class="mt-6 text-center">
+                <a href="/index2" class="transition self-center text-xs lg:text-sm font-bold uppercase
+                        bg-lime-600 hover:bg-lime-800
+                        text-stone-50 hover:text-stone-100
+                        drop-shadow-md rounded-md px-3 py-2">Login</a>
+            </div>
+        </div>
+    </main>
+</div>
 
-
-    <%- include('../layout/footer'); %>
+<%- include('../layout/footer'); %>
