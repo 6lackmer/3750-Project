@@ -9,6 +9,9 @@ var MySQLStore = require('express-mysql-session')(session);
 // create routers
 var indexRouter = require('./routes/index');
 
+var loginUserRouter = require('./routes/loginuser'); // Login page
+var registerRouter = require('./routes/register'); // Register Page
+
 var app = express();
 
 // view engine setup
@@ -32,21 +35,24 @@ var sessionStore = new MySQLStore({}, dbSessionPool);
 
 // Necessary middleware to store session cookies in MySQL
 app.use(session({
-  key: 'session_cookie_name',
-  secret: 'session_cookie_secret1234',
-  store: sessionStore,
-  resave: false,
-  saveUninitialized: false,
-cookie : {
-  sameSite: 'strict'
-}
+    key: 'session_cookie_name',
+    secret: 'session_cookie_secret1234',
+    store: sessionStore,
+    resave: false,
+    saveUninitialized: false,
+    cookie: {
+        sameSite: 'strict'
+    }
 }));
 
 // Middleware to make session variables available in .ejs template files
 app.use(function(req, res, next) {
-  res.locals.session = req.session;
-  next();
+    res.locals.session = req.session;
+    next();
 });
+
+//app.use('/loginuser', loginUserRouter);
+//app.use('/register', registerRouter);
 
 // temporary routes to show site mockup
 app.get('/register', (req, res) => {
@@ -58,18 +64,18 @@ app.get('/login', (req, res) => {
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
-  next(createError(404));
+    next(createError(404));
 });
 
 // error handler
 app.use(function(err, req, res, next) {
-  // set locals, only providing error in development
-  res.locals.message = err.message;
-  res.locals.error = req.app.get('env') === 'development' ? err : {};
+    // set locals, only providing error in development
+    res.locals.message = err.message;
+    res.locals.error = req.app.get('env') === 'development' ? err : {};
 
-  // render the error page
-  res.status(err.status || 500);
-  res.render('error');
+    // render the error page
+    res.status(err.status || 500);
+    res.render('error');
 });
 
 
