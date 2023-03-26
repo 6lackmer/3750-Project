@@ -9,7 +9,7 @@ var MySQLStore = require('express-mysql-session')(session);
 // create routers
 var indexRouter = require('./routes/index');
 
-var loginUserRouter = require('./routes/loginuser'); // Login page
+var loginUserRouter = require('./routes/login'); // Login page
 var registerRouter = require('./routes/register'); // Register Page
 
 var app = express();
@@ -67,8 +67,29 @@ app.get('/login', (req, res) => {
 app.get('/account', (req, res) => {
     res.render('user/account');
 });
+app.get('/history', (req, res) => {
+    res.render('user/history');
+});
 app.get('/reservation', (req, res) => {
     res.render('reservation');
+});
+app.get('/reservation-confirmation', (req, res) => {
+    res.render('reservation-confirmation');
+});
+app.get('/reservation-details', (req, res) => {
+    res.render('reservation-details');
+});
+app.get('/admin/report', (req, res) => {
+    res.render('admin/report');
+});
+app.get('/information', (req, res) => {
+    res.render('information');
+});
+app.get('/location', (req, res) => {
+    res.render('location');
+});
+app.get('/policies', (req, res) => {
+    res.render('policies');
 });
 
 // catch 404 and forward to error handler
