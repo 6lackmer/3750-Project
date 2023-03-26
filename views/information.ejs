@@ -1,0 +1,85 @@
+<%- include('./layout/header2'); %>
+
+<main class="container mx-auto md:my-8 lg:my-10 px-3 py-4">
+    <div class="max-w-5xl mx-auto bg-stone-50 rounded-lg drop-shadow px-10 py-8">
+        <h1 class="subtitle text-5xl mb-12">Information</h1>
+
+        <h2 class="text-sm uppercase text-center text-stone-500 border-b border-t border-stone-200 mt-10 mb-6 pt-2 pb-2">Hours</h2>
+        <dl class="mb-12">
+            <div class="mt-2 mb-4 grid grid-cols-3 gap-3">
+                <dt class="text-stone-500">Office Hours</dt>
+                <dd class="col-span-2">800 - 1600</dd>
+            </div>
+            <div class="mt-2 mb-4 grid grid-cols-3 gap-3">
+                <dt class="text-stone-500">Check-in</dt>
+                <dd class="col-span-2">After 1300</dd>
+            </div>
+            <div class="mt-2 mb-4 grid grid-cols-3 gap-3">
+                <dt class="text-stone-500">Check-out</dt>
+                <dd class="col-span-2">By 1200</dd>
+            </div>
+            <div class="mt-2 mb-4 grid grid-cols-3 gap-3">
+                <dt class="text-stone-500">Quiet Hours</dt>
+                <dd class="col-span-2">2200 - 800 (No generators)</dd>
+            </div>
+        </dl>
+
+        <h2 class="text-sm uppercase text-center text-stone-500 border-b border-t border-stone-200 mt-10 mb-6 pt-2 pb-2">Arrival</h2>
+        <div class="mb-12">
+            <p class="mt-2 mb-4">
+                HAFB South Gate: Fam Camp located 1 block west of South Gate.
+            </p>
+        </div>
+
+        <h2 class="text-sm uppercase text-center text-stone-500 border-b border-t border-stone-200 mt-10 mb-6 pt-2 pb-2">Park Map</h2>
+        <div class="mb-12">
+            <img class="w-full h-auto mt-2 mb-4" src="/images/famcamp-map.png" />
+        </div>
+
+        <h2 class="text-sm uppercase text-center text-stone-500 border-b border-t border-stone-200 mt-10 mb-6 pt-2 pb-2">Pricing</h2>
+        <div class="mb-12">
+            <ul class="list-disc mx-10">
+                <li>Trailer Site: $25</li>
+                <li>Tent Site: $17</li>
+                <li>Storage: $5 ($30/week, $100/month)</li>
+                <li>Dry Camping (No Hookups): $17</li>
+                <li>Pop-Up Trailer: $30</li>
+            </ul>
+        </div>
+
+        <h2 class="text-sm uppercase text-center text-stone-500 border-b border-t border-stone-200 mt-10 mb-6 pt-2 pb-2">Trailer Site Sizing</h2>
+        <div class="mb-12">
+            <ul class="list-disc mx-10">
+                <li>Sites 2-14: 42’</li>
+                <li>Sites 17-31 (Excluding 19 and 21): 45’</li>
+                <li>Sites 32-45 (Pull through. Top of Map): 65’</li>
+                <li>Sites 1, 19, 21: 55’</li>
+                <li>Pop-Up Trailers: About 4’ x 7’</li>
+            </ul>
+        </div>
+
+        <h2 class="text-sm uppercase text-center text-stone-500 border-b border-t border-stone-200 mt-10 mb-6 pt-2 pb-2">Amenities</h2>
+        <dl class="mb-12">
+            <div class="mt-2 mb-4 grid grid-cols-3 gap-3">
+                <dt class="text-stone-500">Rec Room</dt>
+                <dd class="col-span-2">
+                    Includes a microwave, dining area, TV lounge, study room, and book exchange. WiFi is available in or near the building. Stop by the office to check out our free DVD rentals.
+                </dd>
+            </div>
+            <div class="mt-2 mb-4 grid grid-cols-3 gap-3">
+                <dt class="text-stone-500">Laundry</dt>
+                <dd class="col-span-2">
+                    Machines cost $1/cycle. Coin Machine is available in the Laundry Room. Please do not launder pet bedding or heavily soiled items in these machines.
+                </dd>
+            </div>
+            <div class="mt-2 mb-4 grid grid-cols-3 gap-3">
+                <dt class="text-stone-500">Ice</dt>
+                <dd class="col-span-2">
+                    Available in the Laundry Room free of charge. Please refrain from filling large ice chests.
+                </dd>
+            </div>
+        </dl>
+    </div>
+</main>
+
+<%- include('./layout/footer'); %>
