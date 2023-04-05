@@ -1,4 +1,4 @@
-var createError = require('http-errors');
+var CreateError = require('http-errors');
 var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
@@ -9,8 +9,21 @@ var MySQLStore = require('express-mysql-session')(session);
 // create routers
 var indexRouter = require('./routes/index');
 
-var loginUserRouter = require('./routes/login'); // Login page
-var registerRouter = require('./routes/register'); // Register Page
+// Admin Pages
+var adminReportRouter = require('./routes/admin/report'); // Daily Report Page
+
+// Authentication Pages
+var loginRouter = require('./routes/authentication/login'); // Login page
+var registerRouter = require('./routes/authentication/register'); // Register Page
+
+// Public Pages
+var informationRouter = require('./routes/public/information'); // Information Page
+var locationRouter = require('./routes/public/location'); // Location Page
+var policiesRouter = require('./routes/public/policies.js'); // Policies Page
+
+// User Pages
+var accountRouter = require('./routes/user/account'); // User Account Page
+var reservationHistoryRouter = require('./routes/user/history'); // User Reservation History Page
 
 var app = express();
 
@@ -51,24 +64,25 @@ app.use(function(req, res, next) {
     next();
 });
 
-//app.use('/loginuser', loginUserRouter);
-//app.use('/register', registerRouter);
+// Admin Pages
+app.use('/admin/report', adminReportRouter);
+
+// Authentication Pages
+app.use('/login', loginRouter);
+app.use('/register', registerRouter);
+
+// Public Pages
+app.use('/information', informationRouter);
+app.use('/location', locationRouter);
+app.use('/policies', policiesRouter);
+
+// User Pages
+app.use('/account', accountRouter);
+app.use('/history', reservationHistoryRouter);
 
 // temporary routes to show site mockup
 app.get('/index2', (req, res) => {
     res.render('index2');
-});
-app.get('/register', (req, res) => {
-    res.render('user/register');
-});
-app.get('/login', (req, res) => {
-    res.render('user/login');
-});
-app.get('/account', (req, res) => {
-    res.render('user/account');
-});
-app.get('/history', (req, res) => {
-    res.render('user/history');
 });
 app.get('/reservation', (req, res) => {
     res.render('reservation');
@@ -78,18 +92,6 @@ app.get('/reservation-confirmation', (req, res) => {
 });
 app.get('/reservation-details', (req, res) => {
     res.render('reservation-details');
-});
-app.get('/admin/report', (req, res) => {
-    res.render('admin/report');
-});
-app.get('/information', (req, res) => {
-    res.render('information');
-});
-app.get('/location', (req, res) => {
-    res.render('location');
-});
-app.get('/policies', (req, res) => {
-    res.render('policies');
 });
 
 // catch 404 and forward to error handler

@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 
-var dbCon = require('../lib/database');
+var dbCon = require('../../lib/database');
 
 /* GET page. */
 router.get('/', function(req, res, next) {
