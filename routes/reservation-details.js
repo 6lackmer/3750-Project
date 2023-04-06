@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-var dbCon = require('../lib/database');
+var dbCon = require('../../lib/database');
 
 
 /* GET home page. */
