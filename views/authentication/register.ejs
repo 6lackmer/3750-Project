@@ -7,6 +7,13 @@
             <p class="mt-2 mb-4">
                 Create an account to unlock 24/7 online reservations and more.
             </p>
+
+            <%if (locals.message) { %>
+                <p id="error_message" class="mt-2 mb-4 p-3 bg-red-200 border-l-4 border-red-600">
+                    <%= locals.message %>
+                </p>
+            <% } %>
+
             <form method="post">
                 <div class="w-full flex flex-col md:flex-row flex-nowrap gap-12">
                     <div class="w-full">
@@ -66,7 +73,8 @@
                             <select class="w-full block rounded-md border-0 ring-2 ring-inset ring-stone-300 focus:ring-2 focus:ring-inset focus:ring-lime-600 py-2 px-3" id="status" name="status">
                                 <option value=""></option>
                                 <option value="active">Active duty</option>
-                                <option value="veteran">Veteran</option>
+                                <option value="retired">Veteran</option>
+                                <option value="discharged">Discharged</option>
                             </select>
                         </div>
                     </div>
