@@ -24,9 +24,9 @@ router.get('/', function(req, res, next) {
             profileObj.email = rows[0][0].email;
             profileObj.military_affiliation = rows[0][0].dod_affiliation;
             profileObj.status = rows[0][0].dod_status;
-            provileObj.rank = rows[0][0].dod_rank;
+            profileObj.rank = rows[0][0].dod_rank;
 
-            res.render("account", objForProfile);
+            res.render('user/account', profileObj);
         });
     }
 });
