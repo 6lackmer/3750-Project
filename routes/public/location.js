@@ -4,7 +4,7 @@ var router = express.Router();
 /* GET page. */
 router.get('/', function(req, res, next) {
     console.log("location.js: GET")
-    res.render('location', {});
+    res.render('public/location', {});
 });
 
 

@@ -1,53 +1,46 @@
-<%- include('./layout/header2'); %>
+<%- include('../layout/header2'); %>
 
-<main class="container mx-auto md:my-8 lg:my-10 px-3 py-4">
-    <div class="max-w-5xl mx-auto bg-stone-50 rounded-lg drop-shadow px-10 py-8">
-        <h1 class="subtitle text-5xl mb-12">Location</h1>
-        
-        <h2 class="text-sm uppercase text-center text-stone-500 border-b border-t border-stone-200 mt-10 mb-6 pt-2 pb-2">Address and Phone</h2>
-        <div class="mb-12 flex justify-center">
-            <p class="mt-2 mb-4">
-                FamCamp RV Park<br />
-                5622 Park Lane<br />
-                Hill AFB, UT 84056<br />
-                <br />
-                (801) 775-3250
-            </p>
-        </div>
+    <main class="container mx-auto md:my-8 lg:my-10 px-3 py-4">
+        <div class="max-w-5xl mx-auto bg-stone-50 rounded-lg drop-shadow px-10 py-8">
+            <h1 class="subtitle text-5xl mb-12">Location</h1>
 
-        <h2 class="text-sm uppercase text-center text-stone-500 border-b border-t border-stone-200 mt-10 mb-6 pt-2 pb-2">Map</h2>
-        <div class="mb-12">
-            <iframe class="w-full" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3006.137868395719!2d-111.98489244875199!3d41.10967997918899!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8753059eab7f12d7%3A0xebe43ef6e25dd2cf!2sHill%20AFB%20Fam%20Camp!5e0!3m2!1sen!2sus!4v1679852660835!5m2!1sen!2sus" height="400" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-        </div>
-
-        <h2 class="text-sm uppercase text-center text-stone-500 border-b border-t border-stone-200 mt-10 mb-6 pt-2 pb-2">Delivery Address</h2>
-        <div class="mb-12 grid grid-cols-1 md:grid-cols-2 gap-2 justify-items-center">
-            <div class="mt-2 mb-4 flex flex-col items-center">
-                <h3 class="text-3xl">USPS</h3>
-                <p class="text-sm text-stone-500">
-                    Postal service mail need to be picked up at the Base Post Office Bldg 344
+            <h2 class="text-sm uppercase text-center text-stone-500 border-b border-t border-stone-200 mt-10 mb-6 pt-2 pb-2">Address and Phone</h2>
+            <div class="mb-12 flex justify-center">
+                <p class="mt-2 mb-4">
+                    FamCamp RV Park<br /> 5622 Park Lane<br /> Hill AFB, UT 84056<br />
+                    <br /> (801) 775-3250
                 </p>
-                <div class="mt-4">
-                    Your Name<br />
-                    FamCamp<br />
-                    7338 Loncki St.<br />
-                    Hill AFB, UT 84056
-                </div>
             </div>
-            <div class="mt-2 mb-4 flex flex-col items-center">
-                <h3 class="text-3xl">UPS and FedEx</h3>
-                <p class="text-sm text-stone-500">
-                    Parcels are delivered to the Office
-                </p>
-                <div class="mt-4">
-                    Your Name<br />
-                    FamCamp Bldg 564 Site #<br />
-                    5622 Park Lane<br />
-                    Hill AFB, UT 84056
+
+            <h2 class="text-sm uppercase text-center text-stone-500 border-b border-t border-stone-200 mt-10 mb-6 pt-2 pb-2">Map</h2>
+            <div class="mb-12">
+                <iframe class="w-full" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3006.137868395719!2d-111.98489244875199!3d41.10967997918899!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8753059eab7f12d7%3A0xebe43ef6e25dd2cf!2sHill%20AFB%20Fam%20Camp!5e0!3m2!1sen!2sus!4v1679852660835!5m2!1sen!2sus"
+                    height="400" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            </div>
+
+            <h2 class="text-sm uppercase text-center text-stone-500 border-b border-t border-stone-200 mt-10 mb-6 pt-2 pb-2">Delivery Address</h2>
+            <div class="mb-12 grid grid-cols-1 md:grid-cols-2 gap-2 justify-items-center">
+                <div class="mt-2 mb-4 flex flex-col items-center">
+                    <h3 class="text-3xl">USPS</h3>
+                    <p class="text-sm text-stone-500">
+                        Postal service mail need to be picked up at the Base Post Office Bldg 344
+                    </p>
+                    <div class="mt-4">
+                        Your Name<br /> FamCamp
+                        <br /> 7338 Loncki St.<br /> Hill AFB, UT 84056
+                    </div>
+                </div>
+                <div class="mt-2 mb-4 flex flex-col items-center">
+                    <h3 class="text-3xl">UPS and FedEx</h3>
+                    <p class="text-sm text-stone-500">
+                        Parcels are delivered to the Office
+                    </p>
+                    <div class="mt-4">
+                        Your Name<br /> FamCamp Bldg 564 Site #<br /> 5622 Park Lane<br /> Hill AFB, UT 84056
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-</main>
+    </main>
 
-<%- include('./layout/footer'); %>
+    <%- include('../layout/footer'); %>

@@ -19,7 +19,7 @@ var registerRouter = require('./routes/authentication/register'); // Register Pa
 // Public Pages
 var informationRouter = require('./routes/public/information'); // Information Page
 var locationRouter = require('./routes/public/location'); // Location Page
-var policiesRouter = require('./routes/public/policies.js'); // Policies Page
+var policiesRouter = require('./routes/public/policies'); // Policies Page
 
 // User Pages
 var accountRouter = require('./routes/user/account'); // User Account Page
