@@ -1,47 +1,49 @@
 <%- include('./layout/header2'); %>
 
-<div class="flex-grow bg-cover bg-center p-4" style="background-image: url('/images/sunset.jpg');">
-    <main class="container mx-auto md:my-8 lg:my-10 px-3 py-4">
-        <div class="max-w-5xl mx-auto bg-stone-50 rounded-lg drop-shadow px-10 py-8">
-            <h2 class="subtitle text-5xl">Make a reservation today.</h2>
-            <p class="mt-2 mb-8">
-                You fight for your country but you don't have to fight for a spot in our gorgeous park!
-            </p>
-            <form method="post">
-                <div class="mb-3">
-                    <label class="block text-base text-stone-500">Date</label>
-                    <input class="w-full block rounded-md border-0 ring-2 ring-inset ring-stone-300 focus:ring-2 focus:ring-inset focus:ring-lime-600 py-2 px-3" type="date" id="date" name="date" />
-                </div>
-                <div class="mb-3">
-                    <label class="block text-base text-stone-500">Nights</label>
-                    <input class="w-full block rounded-md border-0 ring-2 ring-inset ring-stone-300 focus:ring-2 focus:ring-inset focus:ring-lime-600 py-2 px-3" type="number" id="nights" name="nights" />
-                </div>
-                <div class="mb-3">
-                    <label class="block text-base text-stone-500">RV Size</label>
-                    <select class="w-full block rounded-md border-0 ring-2 ring-inset ring-stone-300 focus:ring-2 focus:ring-inset focus:ring-lime-600 py-2 px-3" id="size" name="size">
+    <div class="flex-grow bg-cover bg-center p-4" style="background-image: url('/images/sunset.jpg');">
+        <main class="container mx-auto md:my-8 lg:my-10 px-3 py-4">
+            <div class="max-w-5xl mx-auto bg-stone-50 rounded-lg drop-shadow px-10 py-8">
+                <h2 class="subtitle text-5xl">Make a reservation today.</h2>
+                <p class="mt-2 mb-8">
+                    You fight for your country but you don't have to fight for a spot in our gorgeous park!
+                </p>
+                <form method="post">
+                    <div class="mb-3">
+                        <label class="block text-base text-stone-500">Date</label>
+                        <input class="w-full block rounded-md border-0 ring-2 ring-inset ring-stone-300 focus:ring-2 focus:ring-inset focus:ring-lime-600 py-2 px-3" type="date" id="date" name="date" />
+                    </div>
+                    <div class="mb-3">
+                        <label class="block text-base text-stone-500">Nights</label>
+                        <input class="w-full block rounded-md border-0 ring-2 ring-inset ring-stone-300 focus:ring-2 focus:ring-inset focus:ring-lime-600 py-2 px-3" type="number" id="nights" min="1" name="nights" />
+                    </div>
+                    <div class="mb-3">
+                        <label class="block text-base text-stone-500">RV Size</label>
+                        <select class="w-full block rounded-md border-0 ring-2 ring-inset ring-stone-300 focus:ring-2 focus:ring-inset focus:ring-lime-600 py-2 px-3" id="size" name="size">
                         <option value=""></option>
-                        <option value="compact">Compact</option>
-                        <option value="standard">Standard</option>
-                        <option value="large">Large</option>
-                        <option value="truck_camper">Truck camper</option>
+                        <option value="40">Compact (40 ft)</option>
+                        <option value="52">Standard (52 ft)</option>
+                        <option value="62">Large (62 ft)</option>
+                        <option value="tent_on_wheels">Tent on Wheels</option>
+                        <option value="pop_up">Pop-Up Trailer</option>
+                        <option value="tent">Tent site</option>
                     </select>
-                </div>
-                <div class="mb-3 flex flex-row flex-nowrap items-center justify-end">
-                    <input id="terms" name="terms" type="checkbox" class="h-6 w-6 rounded border-2 border-stone-300 text-lime-600 focus:ring-lime-600 mr-2" /> 
-                    <label for="terms" class="text-stone-500">
+                    </div>
+                    <div class="mb-3 flex flex-row flex-nowrap items-center justify-end">
+                        <input id="terms" name="terms" type="checkbox" class="h-6 w-6 rounded border-2 border-stone-300 text-lime-600 focus:ring-lime-600 mr-2" />
+                        <label for="terms" class="text-stone-500">
                         I agree to the 
                         <a href="/policies" target="_blank" class="text-yellow-500 underline hover:text-yellow-700">FamCamp Terms & Conditions</a>
                     </label>
-                </div>
-                <div class="mt-6 text-center">
-                    <button type="submit" class="transition self-center text-xs lg:text-sm font-bold uppercase
+                    </div>
+                    <div class="mt-6 text-center">
+                        <button type="submit" class="transition self-center text-xs lg:text-sm font-bold uppercase
                                 bg-lime-600 hover:bg-lime-800
                                 text-stone-50 hover:text-stone-100
                                 drop-shadow-md rounded-md px-3 py-2">Make Reservation</button>
-                </div>
-            </form>
-        </div>
-    </main>
-</div>
+                    </div>
+                </form>
+            </div>
+        </main>
+    </div>
 
-<%- include('./layout/footer'); %>
+    <%- include('./layout/footer'); %>
