@@ -37,8 +37,6 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', indexRouter);
-
 // This will set up the database if it doesn't already exist
 var dbCon = require('./lib/database');
 
@@ -64,6 +62,8 @@ app.use(function(req, res, next) {
     next();
 });
 
+app.use('/', indexRouter);
+
 // Admin Pages
 app.use('/admin/report', adminReportRouter);
 
@@ -81,9 +81,6 @@ app.use('/account', accountRouter);
 app.use('/history', reservationHistoryRouter);
 
 // temporary routes to show site mockup
-app.get('/index2', (req, res) => {
-    res.render('index2');
-});
 app.get('/reservation', (req, res) => {
     res.render('reservation');
 });

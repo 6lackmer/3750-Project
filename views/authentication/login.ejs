@@ -7,6 +7,13 @@
             <p class="mt-2 mb-4">
                 Log in to your account and reserve your stay today!
             </p>
+
+            <%if (locals.message) { %>
+                <p id="error_message" class="mt-2 mb-4 p-3 bg-red-200 border-l-4 border-red-600">
+                    <%= locals.message %>
+                </p>
+            <% } %>
+            
             <form method="post">
                 <div>
                     <div class="mb-3">
