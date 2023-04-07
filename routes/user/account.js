@@ -14,7 +14,7 @@ router.get('/', function(req, res, next) {
 
         profileObj = {}
 
-        let sql = "CALL get_user_info('" + req.session.user_id + "')";
+        let sql = "CALL get_user_account('" + req.session.user_id + "')";
         dbCon.query(sql, function(err, rows) {
             if (err) {
                 throw err;
@@ -24,6 +24,7 @@ router.get('/', function(req, res, next) {
             profileObj.email = rows[0][0].email;
             profileObj.military_affiliation = rows[0][0].dod_affiliation;
             profileObj.status = rows[0][0].dod_status;
+            provileObj.rank = rows[0][0].dod_rank;
 
             res.render("account", objForProfile);
         });
