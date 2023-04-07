@@ -23,7 +23,7 @@ router.post('/', function(req, res, next) { // still to be modified
             throw err;
         } else if (rows[0][0] === undefined) {
             console.log("login.js: Error handling request");
-            res.render("loginuser", {
+            res.render("authentication/login", {
                 message: "Error during login. Please try again"
             });
         } else {
@@ -35,21 +35,37 @@ router.post('/', function(req, res, next) { // still to be modified
             } else {
                 const hashed_password = CryptoJS.SHA256(password + ":" + salt).toString(CryptoJS.enc.Hex);
 
-                let sql = "CALL check_credentials('" + username + "', '" + hashed_password + "', @result); select @result";
+                let sql = "CALL check_credentials('" + username + "', '" + hashed_password + "');";
+
                 dbCon.query(sql, function(err, results) {
                     if (err) {
                         throw err;
                     }
                     console.log("login.js: Obtained check_credentials reply from database");
-                    if (results[1][0] === undefined || results[1][0]["@result"] == 0) {
+
+                    if (results[0][0] === undefined || results[0][0].length === 0) {
                         console.log("login.js: No Login Credentials found");
                         res.render("authentication/login", { message: "Password not valid for user '" + username + "'. Please log in again." });
                     } else {
                         console.log("login.js: Credentials Matched");
-                        let user_id = results[1][0]["@result"];
+
+                        const result = results[0][0];
 
                         req.session.loggedIn = true;
-                        req.session.user_id = user_id;
+                        req.session.user_id = result.account_id;
+                        req.session.user = {
+                            id: result.account_id, 
+                            username: result.username, 
+                            account_type: result.account_type, 
+                            f_name: result.f_name, 
+                            l_name: result.l_name, 
+                            email: result.email, 
+                            phone_number: result.phone_number, 
+                            dod_rank: result.dod_rank, 
+                            dod_affiliation: result.dod_affiliation, 
+                            dod_status: result.dod_status, 
+                            pcs: result.pcs
+                        };
 
                         req.session.save(function(err) {
                             if (err) {
