@@ -1,4 +1,5 @@
 var express = require('express');
+var CryptoJS = require("crypto-js");
 var router = express.Router();
 
 var dbCon = require('../../lib/database');
@@ -6,7 +7,7 @@ var dbCon = require('../../lib/database');
 /* GET page. */
 router.get('/', function(req, res, next) {
     console.log("register.js: GET")
-    res.render('user/register', {});
+    res.render('authentication/register', {});
 });
 
 
@@ -20,12 +21,17 @@ router.post('/', function(req, res, next) { // still to be modified
     const username = req.body.email;
     const first_name = req.body.first_name;
     const last_name = req.body.last_name;
+    const phone = req.body.phone_number;
 
     const password1 = req.body.password;
     const password2 = req.body.password_repeat;
 
+    const account_type = "employee";
+
     const affiliation = req.body.affiliation;
     const status = req.body.status;
+    const rank = req.body.rank;
+    const pcs = 0;
 
     invalidInput = false;
 
@@ -37,56 +43,60 @@ router.post('/', function(req, res, next) { // still to be modified
         invalidInput = true;
     } else if (last_name == "") {
         invalidInput = true;
+    } else if (phone.Length > 10 || phone == "") {
+        invalidInput = true;
+    } else if (status == "" || rank == "" || affiliation == "") {
+        invalidInput = true;
     }
 
     if (invalidInput) {
-        res.render('user/register', { message: "Please Fill in All Fields Correctly" })
+        res.render('authentication/register', { message: "Please Fill in All Fields Correctly" })
     } else {
         // Generate Hash and Salt if needed
+        var salt = CryptoJS.lib.WordArray.random(8);
+        var hashed_password = CryptoJS.SHA256(password1 + ":" + salt).toString(CryptoJS.enc.Hex);
 
+        let sql = "CALL add_user_account(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, @result); select @result";
 
-    }
+        dbCon.query(sql, [username, hashed_password, salt, account_type, first_name, last_name, username, phone, affiliation, status, pcs, rank], function(err, rows) {
+            console.log(rows);
+            if (err) {
+                throw err;
+            }
+            if (rows[1][0]['@result'] == 0) {
+                // Successful Registration
+                console.log("register.js: Account Added to Database");
+                // Retrieve user_id
+                sql = "CALL get_user_id_from_hash_or_email('" + username + "', '" + hashed_password + "');";
 
-    console.log("register.js: username: " + username + " salt: " + salt + " hash: " + hash);
-
-    let sql = "CALL add_user(?, ?, ?, ?, ?, ?, @result); select @result";
-
-    dbCon.query(sql, [role_id, username, hash, salt, first_name, last_name], function(err, rows) {
-        if (err) {
-            throw err;
-        }
-        if (rows[1][0]['@result'] == 0) {
-            // Successful Registration
-
-            // Retrieve user_id
-            sql = "CALL get_user_id_by_username('" + username + "');";
-
-            dbCon.query(sql, function(err, rows) {
-                if (err) {
-                    throw err;
-                }
-
-                const user_id = rows[0][0]["user_id"];
-
-                //Set the session
-                req.session.user_id = user_id;
-                req.session.loggedIn = true;
-
-                req.session.save(function(err) {
+                dbCon.query(sql, function(err, rows) {
                     if (err) {
                         throw err;
                     }
-                    console.log("register.js: Successful Registration, a session field is: " + req.session.username);
 
-                    //Redirect the user to the home page. Let that redirect the user to the correct spot
-                    res.redirect('/');
+                    const user_id = rows[0][0]["user_id"];
+
+                    //Set the session
+                    req.session.user_id = user_id;
+                    req.session.loggedIn = true;
+
+                    req.session.save(function(err) {
+                        if (err) {
+                            throw err;
+                        }
+                        console.log("register.js: Successful Registration, a session field is: " + req.session.user_id);
+
+                        //Redirect the user to the home page. Let that redirect the user to the correct spot
+                        res.redirect('/public/policies');
+                    });
                 });
-            });
-        } else {
-            // This user account already exists
-            console.log("register.js: Username already exists. Reload register page with that message");
-            res.render('register', { message: "The email '" + username + "' already has an acccount associated with it" });
-        }
-    });
+            } else {
+                // This user account already exists
+                console.log("register.js: Username already exists. Reload register page with that message");
+                res.render('/authentication/register', { message: "The email: '" + username + "' already has an account associated with it" });
+            }
+        });
+    }
 });
+
 module.exports = router;
