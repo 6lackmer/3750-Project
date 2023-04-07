@@ -77,8 +77,43 @@ router.post('/', function(req, res, next) {
         let sqlDepartureDate = `${year}-${month}-${day}`;
 
         if (site_type == "40" || site_type == "52" || site_type == "60") {
-            console.log("reservation.js: If statement passed");
+            console.log("reservation.js: Personal Trailer Site");
             let sql = "CALL get_availability_by_date_and_size('" + sqlArrivalDate + "', '" + sqlDepartureDate + "', '" + site_type + "')";
+            dbCon.query(sql, function(err, rows) {
+                if (err) {
+                    throw err;
+                } else {
+                    console.log("availability returned");
+                    if (rows[0][0]) {
+                        console.log("reservation.js: A Site is available");
+
+                        const site_id = rows[0][0].site_id;
+                        const status = "booking";
+                        const account_id = req.session.user_id;
+
+                        let sql = "CALL create_reservation(?, ?, ?, ?, ?, ?);";
+
+                        dbCon.query(sql, [account_id, site_id, sqlArrivalDate, sqlDepartureDate, numNights, status], function(err, rows) {
+                            if (err) {
+                                throw err;
+                            } else {
+                                console.log("reservation.js: Reservation Saved Successfully!");
+
+                                // Next we need to create the invoice and charge a card for payment
+                                req.session.save(function(err) {
+                                    if (err) {
+                                        throw err;
+                                    }
+                                    console.log("register.js: Successful Registration, a session field is: " + req.session.user_id.toString());
+                                });
+                            }
+                        });
+                    }
+                }
+            });
+        } else {
+            console.log("reservation.js: Tent/Pop Up Trailer/ etc");
+            let sql = "CALL get_availability_by_date_and_type('" + sqlArrivalDate + "', '" + sqlDepartureDate + "', '" + site_type + "')";
             dbCon.query(sql, function(err, rows) {
                 if (err) {
                     throw err;
@@ -114,7 +149,7 @@ router.post('/', function(req, res, next) {
         }
     }
     //Redirect the user to the home page. Let that redirect the user to the correct spot
-    res.redirect("policies");
+    res.redirect("reservation-confirmation");
 });
 
 

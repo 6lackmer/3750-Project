@@ -3,6 +3,7 @@ var router = express.Router();
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
+    req.session.loggedIn = false;
     res.render('index', { title: '3750 Project Demo' });
 });
 

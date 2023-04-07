@@ -25,6 +25,9 @@ var policiesRouter = require('./routes/public/policies'); // Policies Page
 var accountRouter = require('./routes/user/account'); // User Account Page
 var reservationHistoryRouter = require('./routes/user/history'); // User Reservation History Page
 
+// Reservation Pages
+var reservationRouter = require('./routes/reservation'); // Reservation Form
+
 var app = express();
 
 // view engine setup
@@ -80,10 +83,9 @@ app.use('/policies', policiesRouter);
 app.use('/account', accountRouter);
 app.use('/history', reservationHistoryRouter);
 
-// temporary routes to show site mockup
-app.get('/reservation', (req, res) => {
-    res.render('reservation');
-});
+// Reservation Pages
+app.use('/reservation', reservationRouter);
+
 app.get('/reservation-confirmation', (req, res) => {
     res.render('reservation-confirmation');
 });
