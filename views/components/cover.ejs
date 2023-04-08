@@ -1,5 +1,4 @@
-<div class="flex flex-col flex-nowrap bg-cover bg-center min-h-128 lg:min-h-156 2xl:min-h-196"
-    style="background-image: url('/images/cover.jpg');">
+<div class="flex flex-col flex-nowrap bg-cover bg-center min-h-128 lg:min-h-156 2xl:min-h-196" style="background-image: url('/images/cover.jpg');">
     <div class="flex-grow container mx-auto flex flex-col place-content-center">
         <div class="max-w-md place-self-end bg-stone-50 rounded-md p-6 md:p-10 m-8 md:m-10">
             <h2 class="subtitle text-2xl">Camp for your country.</h2>
@@ -19,14 +18,16 @@
                     <label class="block text-base text-stone-500">RV Size</label>
                     <select class="w-full block rounded-md border-0 ring-2 ring-inset ring-stone-300 focus:ring-2 focus:ring-inset focus:ring-lime-600 py-2 px-3" id="size" name="size">
                         <option value=""></option>
-                        <option value="compact">Compact</option>
-                        <option value="standard">Standard</option>
-                        <option value="large">Large</option>
-                        <option value="truck_camper">Truck camper</option>
+                        <option value="40">Compact (40 ft)</option>
+                        <option value="52">Standard (52 ft)</option>
+                        <option value="62">Large (62 ft)</option>
+                        <option value="tent_on_wheels">Tent on Wheels</option>
+                        <option value="pop_up_trailer">Pop-Up Trailer</option>
+                        <option value="tent">Tent site</option>
                     </select>
                 </div>
                 <div class="mb-3 flex flex-row flex-nowrap items-center justify-end">
-                    <input id="terms" name="terms" type="checkbox" class="h-6 w-6 rounded border-2 border-stone-300 text-lime-600 focus:ring-lime-600 mr-2" /> 
+                    <input id="terms" name="terms" type="checkbox" class="h-6 w-6 rounded border-2 border-stone-300 text-lime-600 focus:ring-lime-600 mr-2" />
                     <label for="terms" class="text-stone-500">
                         I agree to the 
                         <a href="/policies" target="_blank" class="text-yellow-500 underline hover:text-yellow-700">FamCamp Terms & Conditions</a>
