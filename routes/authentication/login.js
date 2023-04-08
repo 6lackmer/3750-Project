@@ -71,6 +71,7 @@ router.post('/', function(req, res, next) { // still to be modified
                             if (err) {
                                 throw err;
                             } else {
+                                console.log("Session Saved: Current User Name: '" + req.session.user.f_name + " " + req.session.user.l_name + "'");
                                 res.redirect("/")
                             }
                         });

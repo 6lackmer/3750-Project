@@ -83,16 +83,16 @@ router.post('/', function(req, res, next) { // still to be modified
                     req.session.loggedIn = true;
                     req.session.user_id = result.account_id;
                     req.session.user = {
-                        id: result.account_id, 
-                        username: result.username, 
-                        account_type: result.account_type, 
-                        f_name: result.f_name, 
-                        l_name: result.l_name, 
-                        email: result.email, 
-                        phone_number: result.phone_number, 
-                        dod_rank: result.dod_rank, 
-                        dod_affiliation: result.dod_affiliation, 
-                        dod_status: result.dod_status, 
+                        id: result.account_id,
+                        username: result.username,
+                        account_type: result.account_type,
+                        f_name: result.f_name,
+                        l_name: result.l_name,
+                        email: result.email,
+                        phone_number: result.phone_number,
+                        dod_rank: result.dod_rank,
+                        dod_affiliation: result.dod_affiliation,
+                        dod_status: result.dod_status,
                         pcs: result.pcs
                     };
 
@@ -103,7 +103,7 @@ router.post('/', function(req, res, next) { // still to be modified
                         console.log("register.js: Successful Registration, a session field is: " + req.session.user_id.toString());
 
                         //Redirect the user to the home page. Let that redirect the user to the correct spot
-                        res.redirect("policies");
+                        res.redirect("/");
                     });
                 });
             } else {
