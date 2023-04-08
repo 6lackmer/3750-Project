@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-var dbCon = require('../../lib/database');
+var dbCon = require('./../lib/database');
 
 
 /* GET home page. */
@@ -15,7 +15,7 @@ router.get('/', function(req, res, next) {
         1: Arrival Date
         */
 
-    let sql = "CALL get_reservations_from_account_id('" + req.body.user.id + "', '')";
+    let sql = "CALL get_reservations_from_account_id('" + req.session.user_id + "', '0')";
     dbCon.query(sql, function(err, rows) {
         if (err) {
             throw err;
@@ -30,12 +30,12 @@ router.get('/', function(req, res, next) {
             }
         }
 
-        let sql = "CALL get_reservation_information('" + maxID + "')";
+        let sql = "CALL get_reservation_from_reservation_id('" + maxID + "')";
         dbCon.query(sql, function(err, rows) {
             if (err) {
                 throw err;
             }
-            reservationObj.arrival_date = rows[0][0].startdate;
+            reservationObj.arrival_date = rows[0][0].start_date;
 
             console.log(reservationObj.arrival_date);
 
