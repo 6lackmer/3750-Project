@@ -20,15 +20,34 @@ router.get('/', function(req, res, next) {
         if (err) {
             throw err;
         }
-        console.log(rows);
+        var reservations = rows[0];
 
-        req.session.save(function(err) {
+        maxID = 0;
+
+        for (var i = 0; i < reservations.length; i++) {
+            if (reservations[1].reservation_id > maxID) {
+                maxID = reservations[1].reservation_id;
+            }
+        }
+
+        let sql = "CALL get_reservation_information('" + maxID + "')";
+        dbCon.query(sql, function(err, rows) {
             if (err) {
                 throw err;
-            } else {
-                res.render('reservation-confirmation', reservationObj);
             }
+            reservationObj.arrival_date = rows[0][0].startdate;
+
+            console.log(reservationObj.arrival_date);
+
+            req.session.save(function(err) {
+                if (err) {
+                    throw err;
+                } else {
+                    res.render('reservation-confirmation', reservationObj);
+                }
+            });
         });
+
     });
 });
 
