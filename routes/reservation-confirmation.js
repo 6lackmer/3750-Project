@@ -15,7 +15,7 @@ router.get('/', function(req, res, next) {
         1: Arrival Date
         */
 
-    let sql = "CALL get_reservations_from_account_id('" + req.body.user.id + "')";
+    let sql = "CALL get_reservations_from_account_id('" + req.body.user.id + "', '')";
     dbCon.query(sql, function(err, rows) {
         if (err) {
             throw err;
