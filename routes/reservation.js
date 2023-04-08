@@ -89,7 +89,7 @@ router.post('/', function(req, res, next) {
 
                         const site_id = rows[0][0].site_id;
                         const status = "booking";
-                        const account_id = req.session.user_id;
+                        const account_id = req.session.user.id;
 
                         let sql = "CALL create_reservation(?, ?, ?, ?, ?, ?);";
 
@@ -124,7 +124,7 @@ router.post('/', function(req, res, next) {
 
                         const site_id = rows[0][0].site_id;
                         const status = "booking";
-                        const account_id = req.session.user_id;
+                        const account_id = req.session.user.id;
 
                         let sql = "CALL create_reservation(?, ?, ?, ?, ?, ?);";
 

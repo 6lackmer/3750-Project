@@ -44,7 +44,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 var dbCon = require('./lib/database');
 
 // Session management to store cookies in a MySQL server (this has a bug, so we assist it by creating the database for it)
-var dbSessionPool = require('./lib/sessionPool.js');
+var dbSessionPool = require('./lib/sessionPool');
 var sessionStore = new MySQLStore({}, dbSessionPool);
 
 // Necessary middleware to store session cookies in MySQL
