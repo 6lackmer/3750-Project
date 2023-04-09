@@ -28,10 +28,8 @@ function formatDate(date) {
     return [year, month, day].join('-');
 }
 
-/* POST page. */
-router.post('/', function(req, res, next) {
-    console.log("reservation.js: POST");
 
+function createReservation(req) {
     // Form Values
     let arrivalDate = req.body.date;
     var numNights = parseInt(req.body.nights);
@@ -147,8 +145,42 @@ router.post('/', function(req, res, next) {
                 }
             });
         }
+
+        let sql = "CALL get_reservations_from_account_id('" + req.session.user_id + "', '0')";
+        dbCon.query(sql, function(err, rows) {
+            if (err) {
+                throw err;
+            }
+            var reservations = rows[0];
+
+            maxID = 0;
+
+            for (var i = 0; i < reservations.length; i++) {
+                if (reservations[1].reservation_id > maxID) {
+                    maxID = reservations[1].reservation_id;
+                }
+            }
+
+            let sql = "CALL get_reservation_from_reservation_id('" + maxID + "')";
+            dbCon.query(sql, function(err, rows) {
+                if (err) {
+                    throw err;
+                }
+                return rows[0][0].reservation_id;
+            });
+        });
     }
-    //Redirect the user to the home page. Let that redirect the user to the correct spot
+}
+
+
+/* POST page. */
+router.post('/', function(req, res, next) {
+    console.log("reservation.js: POST");
+
+    // Save Reservation in Database
+
+    let reservation_id = createReservation(req);
+
     res.redirect("reservation-confirmation");
 });
 
