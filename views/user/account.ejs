@@ -5,15 +5,21 @@
             <dl class="">
                 <div class="flex flex-row justify-between mb-8">
                     <h2 class="subtitle text-5xl">My Account</h2>
-                    <a href="/#" class="transition self-center text-xs lg:text-sm font-bold uppercase
+                    <!-- <a href="/#" class="transition self-center text-xs lg:text-sm font-bold uppercase
                                 bg-lime-600 hover:bg-lime-800
                                 text-stone-50 hover:text-stone-100
-                                drop-shadow rounded-md px-3 py-2">Edit</a>
+                                drop-shadow rounded-md px-3 py-2">Edit</a> -->
                 </div>
                 <div class="mt-2 mb-4 grid grid-cols-3 gap-3">
                     <dt class="text-stone-500">Name</dt>
                     <dd class="col-span-2">
                         <%- locals.full_name %>
+                    </dd>
+                </div>
+                <div class="mt-2 mb-4 grid grid-cols-3 gap-3">
+                    <dt class="text-stone-500">Phone number</dt>
+                    <dd class="col-span-2">
+                        <%- locals.phone_number %>
                     </dd>
                 </div>
                 <div class="mt-2 mb-4 grid grid-cols-3 gap-3">
@@ -26,6 +32,12 @@
                     <dt class="text-stone-500">Military affiliation</dt>
                     <dd class="col-span-2">
                         <%- locals.military_affiliation %>
+                    </dd>
+                </div>
+                <div class="mt-2 mb-4 grid grid-cols-3 gap-3">
+                    <dt class="text-stone-500">Military rank</dt>
+                    <dd class="col-span-2">
+                        <%- locals.rank %>
                     </dd>
                 </div>
                 <div class="mt-2 mb-4 grid grid-cols-3 gap-3">

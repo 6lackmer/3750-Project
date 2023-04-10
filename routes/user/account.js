@@ -21,29 +21,18 @@ router.get('/', function(req, res, next) {
             }
             console.log(rows);
             profileObj.full_name = (rows[0][0].f_name + " " + rows[0][0].l_name);
+
+            profileObj.phone_number = rows[0][0].phone_number.replace(/(\d{3})(\d{3})(\d{4})/,"($1) $2-$3");
+
             profileObj.email = rows[0][0].email;
 
-            let temp = rows[0][0].dod_affiliation;
-            if (temp == "army") {
-                profileObj.military_affiliation = "Army";
-            } else if (temp == "navy") {
-                profileObj.military_affiliation = "Navy";
-            } else if (temp == "coast_guard") {
-                profileObj.military_affiliation = "Coast Guard";
-            } else if (temp == "marines") {
-                profileObj.military_affiliation = "Marines";
-            } else if (temp == "air_force") {
-                profileObj.military_affiliation = "Air Force";
-            } else if (temp == "area_51") {
-                profileObj.military_affiliation = "Area 51";
-            }
+            profileObj.military_affiliation = rows[0][0].dod_affiliation.split("_").map(word => (
+                word.charAt(0).toUpperCase() + word.slice(1)
+            )).join(' ');
 
-            temp = rows[0][0].dod_status;
-            if (temp == "active") {
-                profileObj.status = "Active Duty";
-            } else {
-                profileObj.status = "Veteran";
-            }
+            profileObj.status = rows[0][0].dod_status === "active" ? "Active Duty" 
+                : (rows[0][0].dod_status.charAt(0).toUpperCase() + rows[0][0].dod_status.slice(1));
+
             profileObj.rank = rows[0][0].dod_rank;
 
             res.render('user/account', profileObj);
