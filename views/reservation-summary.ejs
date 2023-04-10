@@ -1,0 +1,50 @@
+<%- include('layout/header'); %>
+
+    <main class="container mx-auto md:my-8 lg:my-10 px-3 py-4">
+        <div class="max-w-5xl mx-auto bg-stone-50 rounded-lg drop-shadow px-10 py-8">
+            <h2 class="subtitle text-5xl">Reservation summary</h2>
+            <p class="mt-2 mb-8">
+                
+            </p>
+            
+            <form action="/reservation" method="post">
+                <div class="mb-3">
+                    <label class="block text-base text-stone-500">Date</label>
+                    <p class="py-2 px-3 text-yellow-500">APR 30, 2023</p>
+                </div>
+                <div class="mb-3">
+                    <label class="block text-base text-stone-500">Nights</label>
+                    <p class="py-2 px-3 text-yellow-500">7</p>
+                </div>
+                <div class="mb-3">
+                    <label class="block text-base text-stone-500">RV Size</label>
+                    <p class="py-2 px-3 text-yellow-500">Large (62 ft)</p>
+                </div>
+                <div class="mt-6 text-center">
+                    <form class="inline-block" action="/reservation" method="post">
+                        <input type="hidden" id="" name="" value="" />
+                        <input type="hidden" id="" name="" value="" />
+                        <input type="hidden" id="" name="" value="" />
+                        <button type="submit" class="transition self-center text-xs lg:text-sm font-bold uppercase
+                                bg-red-600 hover:bg-red-800
+                                text-stone-50 hover:text-stone-100
+                                drop-shadow-md rounded-md px-3 py-2">Edit Details</button>
+                    </form>
+                    <form class="inline-block" action="/reservation-summary" method="post">
+                        <input type="hidden" id="" name="" value="" />
+                        <input type="hidden" id="" name="" value="" />
+                        <input type="hidden" id="" name="" value="" />
+                        <button type="submit" class="transition self-center text-xs lg:text-sm font-bold uppercase
+                                bg-lime-600 hover:bg-lime-800
+                                text-stone-50 hover:text-stone-100
+                                drop-shadow-md rounded-md px-3 py-2">Confirm Reservation</button>
+                    </form>
+                </div>
+            </form>
+        </div>
+    </main>
+
+    <script type="text/javascript">
+    </script>
+
+<%- include('layout/footer'); %>
