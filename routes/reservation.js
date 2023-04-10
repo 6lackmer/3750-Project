@@ -166,7 +166,7 @@ function createReservation(req) {
                 if (err) {
                     throw err;
                 }
-                return rows[0][0].reservation_id;
+                //return rows[0][0].reservation_id;
             });
         });
     }
@@ -179,7 +179,7 @@ router.post('/', function(req, res, next) {
 
     // Save Reservation in Database
 
-    let reservation_id = createReservation(req);
+    createReservation(req);
 
     res.redirect("reservation-confirmation");
 });
