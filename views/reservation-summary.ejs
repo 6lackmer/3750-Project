@@ -11,118 +11,113 @@
     });
 %>
 
-<%- include('layout/header'); %>
+    <%- include('layout/header'); %>
 
-<main class="container mx-auto md:my-8 lg:my-10 px-3 py-4">
-    <div class="max-w-5xl mx-auto bg-stone-50 rounded-lg drop-shadow px-10 py-8">
-        <h2 class="subtitle text-5xl">Reservation summary</h2>
-        <p class="mt-2 mb-8">You're almost there! Just enter your payment information and the reservation is yours.</p>
-        <div class="flex flex-row flex-wrap md:flex-nowrap justify-between divide-y md:divide-y-0 md:divide-x divide-stone-200">
-            <div class="w-full md:w-2/5 flex flex-col justify-start pb-5 md:pb-0 md:pr-6 lg:pr-10">
-                <div class="mb-3">
-                    <label class="block text-base text-stone-500">Date</label>
-                    <p class="py-1 px-3 text-yellow-500 bg-stone-100">
-                        <%- date %>
-                    </p>
-                </div>
-                <div class="mb-3">
-                    <label class="block text-base text-stone-500">Nights</label>
-                    <p class="py-1 px-3 text-yellow-500 bg-stone-100">
-                        <%- reservationObj.nights %>
-                    </p>
-                </div>
-                <div class="mb-3">
-                    <label class="block text-base text-stone-500">RV Size</label>
-                    <p class="py-1 px-3 text-yellow-500 bg-stone-100">
-                        <%- reservationObj.size %>
-                    </p>
-                </div>
-                <div class="mb-3">
-                    <label class="block text-base text-stone-500">Total</label>
-                    <p class="py-1 px-3 text-yellow-500 bg-stone-100">
-                        <%- amount %>
-                    </p>
-                </div>
-                <div class="mt-6 text-center">
-                    <form class="inline-block" action="/reservation" method="post">
-                        <input type="hidden" id="date" name="date" value="<%= reservationObj.date %>" required />
-                        <input type="hidden" id="nights" name="nights" value="<%= reservationObj.nights %>" required />
-                        <input type="hidden" id="size" name="size" value="<%= reservationObj.size %>" required />
-                        <button type="submit" class="transition self-center text-xs lg:text-sm font-bold uppercase
+        <main class="container mx-auto md:my-8 lg:my-10 px-3 py-4">
+            <div class="max-w-5xl mx-auto bg-stone-50 rounded-lg drop-shadow px-10 py-8">
+                <h2 class="subtitle text-5xl">Reservation summary</h2>
+                <p class="mt-2 mb-8">You're almost there! Just enter your payment information and the reservation is yours.</p>
+                <div class="flex flex-row flex-wrap md:flex-nowrap justify-between divide-y md:divide-y-0 md:divide-x divide-stone-200">
+                    <div class="w-full md:w-2/5 flex flex-col justify-start pb-5 md:pb-0 md:pr-6 lg:pr-10">
+                        <div class="mb-3">
+                            <label class="block text-base text-stone-500">Date</label>
+                            <p class="py-1 px-3 text-yellow-500 bg-stone-100">
+                                <%- date %>
+                            </p>
+                        </div>
+                        <div class="mb-3">
+                            <label class="block text-base text-stone-500">Nights</label>
+                            <p class="py-1 px-3 text-yellow-500 bg-stone-100">
+                                <%- reservationObj.nights %>
+                            </p>
+                        </div>
+                        <div class="mb-3">
+                            <label class="block text-base text-stone-500">RV Size</label>
+                            <p class="py-1 px-3 text-yellow-500 bg-stone-100">
+                                <%- reservationObj.size_text %>
+                            </p>
+                        </div>
+                        <div class="mb-3">
+                            <label class="block text-base text-stone-500">Total</label>
+                            <p class="py-1 px-3 text-yellow-500 bg-stone-100">
+                                <%- amount %>
+                            </p>
+                        </div>
+                        <div class="mt-6 text-center">
+                            <form class="inline-block" action="/reservation" method="post">
+                                <input type="hidden" id="date" name="date" value="<%= reservationObj.date %>" required />
+                                <input type="hidden" id="nights" name="nights" value="<%= reservationObj.nights %>" required />
+                                <input type="hidden" id="size" name="size" value="<%= reservationObj.size %>" required />
+                                <button type="submit" class="transition self-center text-xs lg:text-sm font-bold uppercase
                                     bg-red-600 hover:bg-red-800
                                     text-stone-50 hover:text-stone-100
                                     drop-shadow-md rounded-md px-3 py-2">Edit Details</button>
-                    </form>
-                </div>
-            </div>
-            <div class="w-full md:w-3/5 pt-5 md:pt-0 md:pl-6 lg:pl-10">
-                <form class="" action="/reservation-confirmation" method="post">
-                    <input type="hidden" id="date" name="date" value="<%= reservationObj.date %>" required />
-                    <input type="hidden" id="nights" name="nights" value="<%= reservationObj.nights %>" required />
-                    <input type="hidden" id="size" name="size" value="<%= reservationObj.size %>" required />
-    
-                    <div class="mb-3">
-                        <label class="block text-base text-stone-500">Cardholder Name</label>
-                        <input class="w-full block rounded-md border-0 ring-2 ring-inset ring-stone-300 focus:ring-2 focus:ring-inset focus:ring-lime-600 py-2 px-3"
-                            type="text" id="cardholder_name" name="cardholder_name" required />
-                    </div>
-                    <div class="pt-3 mb-3 border-b"></div>
-                    <div class="mb-3">
-                        <label class="block text-base text-stone-500">Billing Address</label>
-                        <input class="w-full block rounded-md border-0 ring-2 ring-inset ring-stone-300 focus:ring-2 focus:ring-inset focus:ring-lime-600 py-2 px-3"
-                            type="text" id="address1" name="address1" required />
-                    </div>
-                    
-                    <div class="flex flex-row flex-nowrap gap-x-3">
-                        <div class="mb-3 grow">
-                            <label class="block text-base text-stone-500">Building/Apartment/Suite</label>
-                            <input class="w-full block rounded-md border-0 ring-2 ring-inset ring-stone-300 focus:ring-2 focus:ring-inset focus:ring-lime-600 py-2 px-3"
-                                type="text" id="address2" name="address2" />
+                            </form>
                         </div>
-                        <div class="mb-3 w-16">
-                            <label class="block text-base text-stone-500">State</label>
-                            <select class="w-full block rounded-md border-0 ring-2 ring-inset ring-stone-300 focus:ring-2 focus:ring-inset focus:ring-lime-600 py-2 px-3"
-                                id="state" name="state" required>
+                    </div>
+                    <div class="w-full md:w-3/5 pt-5 md:pt-0 md:pl-6 lg:pl-10">
+                        <form class="" action="/reservation-confirmation" method="post">
+                            <input type="hidden" id="date" name="date" value="<%= reservationObj.date %>" required />
+                            <input type="hidden" id="nights" name="nights" value="<%= reservationObj.nights %>" required />
+                            <input type="hidden" id="size" name="size" value="<%= reservationObj.size %>" required />
+                            <input type="hidden" id="site_id" name="site_id" value="<%= reservationObj.site_id %>" required />
+                            <input type="hidden" id="amount" name="amount" value="<%= reservationObj.amount %>" required />
+
+                            <div class="mb-3">
+                                <label class="block text-base text-stone-500">Cardholder Name</label>
+                                <input class="w-full block rounded-md border-0 ring-2 ring-inset ring-stone-300 focus:ring-2 focus:ring-inset focus:ring-lime-600 py-2 px-3" type="text" id="cardholder_name" name="cardholder_name" required />
+                            </div>
+                            <div class="pt-3 mb-3 border-b"></div>
+                            <div class="mb-3">
+                                <label class="block text-base text-stone-500">Billing Address</label>
+                                <input class="w-full block rounded-md border-0 ring-2 ring-inset ring-stone-300 focus:ring-2 focus:ring-inset focus:ring-lime-600 py-2 px-3" type="text" id="address1" name="address1" required />
+                            </div>
+
+                            <div class="flex flex-row flex-nowrap gap-x-3">
+                                <div class="mb-3 grow">
+                                    <label class="block text-base text-stone-500">Building/Apartment/Suite</label>
+                                    <input class="w-full block rounded-md border-0 ring-2 ring-inset ring-stone-300 focus:ring-2 focus:ring-inset focus:ring-lime-600 py-2 px-3" type="text" id="address2" name="address2" />
+                                </div>
+                                <div class="mb-3 w-16">
+                                    <label class="block text-base text-stone-500">State</label>
+                                    <select class="w-full block rounded-md border-0 ring-2 ring-inset ring-stone-300 focus:ring-2 focus:ring-inset focus:ring-lime-600 py-2 px-3" id="state" name="state" required>
                                 <option value=""></option>
                                 <option value="AZ">AZ</option>
                                 <option value="CA">CA</option>
                                 <option value="ID">ID</option>
                                 <option value="UT">UT</option>
                             </select>
-                        </div>
-                        <div class="mb-3 w-36">
-                            <label class="block text-base text-stone-500">Zip Code</label>
-                            <input class="w-full block rounded-md border-0 ring-2 ring-inset ring-stone-300 focus:ring-2 focus:ring-inset focus:ring-lime-600 py-2 px-3"
-                                type="text" id="zip_code" name="zip_code" required />
-                        </div>
-                    </div>
-                    <div class="pt-3 mb-3 border-b"></div>
-                    <div class="flex flex-row flex-nowrap gap-x-3 justify-items-stretch">
-                        <div class="mb-3 w-full">
-                            <label class="block text-base text-stone-500">Card Number</label>
-                            <input class="w-full block rounded-md border-0 ring-2 ring-inset ring-stone-300 focus:ring-2 focus:ring-inset focus:ring-lime-600 py-2 px-3"
-                                type="text" id="card_number" name="card_number" required />
-                        </div>
-                        <div class="mb-3">
-                            <label class="block text-base text-stone-500">Security Code</label>
-                            <input class="w-full block rounded-md border-0 ring-2 ring-inset ring-stone-300 focus:ring-2 focus:ring-inset focus:ring-lime-600 py-2 px-3"
-                                type="text" id="security_code" name="security_code" required />
-                        </div>
-                    </div>
-    
-                    <div class="mb-3 w-full mt-6 text-center">
-                        <button type="submit" class="transition self-center text-xs lg:text-sm font-bold uppercase
+                                </div>
+                                <div class="mb-3 w-36">
+                                    <label class="block text-base text-stone-500">Zip Code</label>
+                                    <input class="w-full block rounded-md border-0 ring-2 ring-inset ring-stone-300 focus:ring-2 focus:ring-inset focus:ring-lime-600 py-2 px-3" type="text" id="zip_code" name="zip_code" required />
+                                </div>
+                            </div>
+                            <div class="pt-3 mb-3 border-b"></div>
+                            <div class="flex flex-row flex-nowrap gap-x-3 justify-items-stretch">
+                                <div class="mb-3 w-full">
+                                    <label class="block text-base text-stone-500">Card Number</label>
+                                    <input class="w-full block rounded-md border-0 ring-2 ring-inset ring-stone-300 focus:ring-2 focus:ring-inset focus:ring-lime-600 py-2 px-3" type="text" id="card_number" name="card_number" required />
+                                </div>
+                                <div class="mb-3">
+                                    <label class="block text-base text-stone-500">Security Code</label>
+                                    <input class="w-full block rounded-md border-0 ring-2 ring-inset ring-stone-300 focus:ring-2 focus:ring-inset focus:ring-lime-600 py-2 px-3" type="text" id="security_code" name="security_code" required />
+                                </div>
+                            </div>
+
+                            <div class="mb-3 w-full mt-6 text-center">
+                                <button type="submit" class="transition self-center text-xs lg:text-sm font-bold uppercase
                                     bg-lime-600 hover:bg-lime-800
                                     text-stone-50 hover:text-stone-100
                                     drop-shadow-md rounded-md px-3 py-2">Confirm Reservation</button>
+                            </div>
+                        </form>
                     </div>
-                </form>
+                </div>
             </div>
-        </div>
-    </div>
-</main>
+        </main>
 
-<script type="text/javascript">
-</script>
+        <script type="text/javascript">
+        </script>
 
-<%- include('layout/footer'); %>
+        <%- include('layout/footer'); %>
