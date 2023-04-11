@@ -21,7 +21,7 @@ router.post('/', function(req, res, next) { // still to be modified
     const username = req.body.email;
     const first_name = req.body.first_name;
     const last_name = req.body.last_name;
-    const phone = req.body.phone.toString();
+    const phone_number = req.body.phone_number.toString();
 
     const password1 = req.body.password;
     const password2 = req.body.password_repeat;
@@ -45,7 +45,7 @@ router.post('/', function(req, res, next) { // still to be modified
         invalidInput = true;
     } else if (last_name == "") {
         invalidInput = true;
-    } else if (phone.Length > 10 || phone == "") {
+    } else if (phone_number.Length > 10 || phone_number == "") {
         invalidInput = true;
     } else if (status == "" || rank == "" || affiliation == "") {
         invalidInput = true;
@@ -62,7 +62,7 @@ router.post('/', function(req, res, next) { // still to be modified
 
         let sql = "CALL add_user_account(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, @result); select @result";
 
-        dbCon.query(sql, [username, hashed_password, salt, account_type, first_name, last_name, username, phone, rank, affiliation, status, pcs], function(err, rows) {
+        dbCon.query(sql, [username, hashed_password, salt, account_type, first_name, last_name, username, phone_number, rank, affiliation, status, pcs], function(err, rows) {
             console.log(rows);
             if (err) {
                 throw err;
