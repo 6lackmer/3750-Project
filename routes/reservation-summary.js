@@ -2,18 +2,150 @@ var express = require('express');
 var router = express.Router();
 var dbCon = require('./../lib/database');
 
+//#region Post Method Functions
+function addDays(date, days) {
+    var result = new Date(date);
+    result.setDate(result.getDate() + 1 + days);
+    return result;
+}
+
+function formatDate(date) {
+    var d = new Date(date),
+        month = '' + (d.getMonth() + 1),
+        day = '' + d.getDate(),
+        year = d.getFullYear();
+
+    if (month.length < 2)
+        month = '0' + month;
+    if (day.length < 2)
+        day = '0' + day;
+
+    return [year, month, day].join('-');
+}
+//#endregion
+
 //////////////////////// TEST POST METHOD ////////////////////////
 router.post('/', function(req, res, next) {
+
+    console.log("reservation-summary.js: POST");
+
+    // Save Reservation in Database
+    let arrivalDate = req.body.date;
+    var numNights = parseInt(req.body.nights);
+    let site_type = req.body.size;
+
+    // Generate Departure Date
+    let tempdepartureDate = addDays(arrivalDate, numNights);
+    let departureDate = formatDate(tempdepartureDate);
+
+    // Validation Variables
+    currentDate = formatDate(new Date());
+    let invalidInput = false;
+
     var reservationObj = {
         date: req.body.date,
         nights: req.body.nights,
         size: req.body.size,
-        amount: req.body.nights * 25
     };
 
-    console.log("reservation-summary.js: POST");
-    res.render('reservation-summary', { reservationObj });
+    if (req.body.size == "40") {
+        reservationObj.size_text = "Compact (40 ft)";
+    } else if (req.body.size == "52") {
+        reservationObj.size_text = "Standard (52 ft)";
+    } else if (req.body.size == "62") {
+        reservationObj.size_text = "Large (62 ft)";
+    } else if (req.body.size == "tent_on_wheels") {
+        reservationObj.size_text = "Tent on Wheels";
+    } else if (req.body.size == "pop_up_trailer") {
+        reservationObj.size_text = "Pop-Up Trailer";
+    } else {
+        reservationObj.size_text = "Tent site";
+    }
+
+    let sql = "CALL get_user_account('" + req.session.user_id + "')";
+    dbCon.query(sql, function(err, rows) {
+        if (err) {
+            throw err;
+        } else {
+            reservationObj.cardholder_name = rows[0][0].f_name + " " + rows[0][0].l_name;
+
+            // Validate Input
+            if (arrivalDate = "" || arrivalDate < currentDate) {
+                console.log("reservation.js: Date Issue");
+                invalidInput = true;
+            } else if (numNights < 1) {
+                console.log("reservation.js: Duration Issue");
+            } else if (site_type == "") {
+                console.log("reservation.js: Site Issue");
+                invalidInput = true;
+            }
+
+            if (invalidInput) { // Invalid Input.  Request User Input
+                console.log("reservation.js: Form not complete");
+                res.render('reservation', { message: "Please Fill in All Fields Correctly" });
+            } else { // Valid Input
+                console.log("reservation.js: Input valid.  Query Database for reservations by date and site size");
+
+                // Compute dates that SQL will accept
+                var sqlADate = new Date(req.body.date);
+                var sqlDDate = new Date(departureDate);
+
+                let day = sqlADate.getDate();
+                let month = sqlADate.getMonth() + 1;
+                let year = sqlADate.getFullYear();
+                let sqlArrivalDate = `${year}-${month}-${day}`;
+
+                day = sqlDDate.getDate();
+                month = sqlDDate.getMonth() + 1;
+                year = sqlDDate.getFullYear();
+                let sqlDepartureDate = `${year}-${month}-${day}`;
+
+                if (site_type == "40" || site_type == "52" || site_type == "62") {
+                    console.log("reservation.js: Personal Trailer Site");
+                    let sql = "CALL get_availability_by_date_and_size('" + sqlArrivalDate + "', '" + sqlDepartureDate + "', '" + site_type + "')";
+                    dbCon.query(sql, function(err, rows) {
+                        if (err) {
+                            throw err;
+                        } else {
+                            console.log("availability returned");
+                            if (rows[0][0]) {
+                                console.log("reservation.js: A Site is available");
+
+                                reservationObj.site_id = rows[0][0].site_id;
+                                console.log("reservation-summary.js: Site Id: '" + reservationObj.site_id + "'");
+                                reservationObj.amount = (rows[0][0].rate * req.body.nights);
+
+                                console.log("reservation.js: Sending to Reservation summary Page");
+                                res.render("reservation-summary", { reservationObj });
+                            }
+                        }
+                    });
+                } else {
+                    console.log("reservation.js: Tent/Pop Up Trailer/ etc");
+                    let sql = "CALL get_availability_by_date_and_type('" + sqlArrivalDate + "', '" + sqlDepartureDate + "', '" + site_type + "')";
+                    dbCon.query(sql, function(err, rows) {
+                        if (err) {
+                            throw err;
+                        } else {
+                            console.log("availability returned");
+                            if (rows[0][0]) {
+                                console.log("reservation.js: A Site is available");
+
+                                reservationObj.site_id = rows[0][0].site_id;
+                                console.log("reservation-summary.js: Site Id: '" + reservationObj.site_id + "'");
+                                reservationObj.amount = (rows[0][0].rate * req.body.nights);
+
+                                console.log("reservation.js: Sending to Reservation summary Page");
+                                res.render("reservation-summary", { reservationObj });
+                            }
+                        }
+                    });
+                }
+            }
+        }
+    });
 });
+
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
