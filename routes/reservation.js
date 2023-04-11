@@ -91,10 +91,11 @@ router.post('/', function(req, res, next) {
                         const site_id = rows[0][0].site_id;
                         const status = "booking";
                         const account_id = req.session.user.id;
+                        const memo = ""
 
-                        let sql = "CALL create_reservation(?, ?, ?, ?, ?, ?);";
+                        let sql = "CALL add_reservation(?, ?, ?, ?, ?, ?, ?);";
 
-                        dbCon.query(sql, [account_id, site_id, sqlArrivalDate, sqlDepartureDate, numNights, status], function(err, rows) {
+                        dbCon.query(sql, [account_id, site_id, sqlArrivalDate, numNights, memo, status, sqlDepartureDate], function(err, rows) {
                             if (err) {
                                 throw err;
                             } else {
@@ -127,10 +128,11 @@ router.post('/', function(req, res, next) {
                         const site_id = rows[0][0].site_id;
                         const status = "booking";
                         const account_id = req.session.user.id;
+                        const memo = ""
 
-                        let sql = "CALL create_reservation(?, ?, ?, ?, ?, ?);";
+                        let sql = "CALL add_reservation(?, ?, ?, ?, ?, ?, ?);";
 
-                        dbCon.query(sql, [account_id, site_id, sqlArrivalDate, sqlDepartureDate, numNights, status], function(err, rows) {
+                        dbCon.query(sql, [account_id, site_id, sqlArrivalDate, numNights, memo, status, sqlDepartureDate], function(err, rows) {
                             if (err) {
                                 throw err;
                             } else {
