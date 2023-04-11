@@ -19,41 +19,41 @@
                     <div class="w-full">
                         <div class="mb-3">
                             <label class="block text-base text-stone-500">Email address</label>
-                            <input class="w-full block rounded-md border-0 ring-2 ring-inset ring-stone-300 focus:ring-2 focus:ring-inset focus:ring-lime-600 py-2 px-3" type="email" id="email"
-                                name="email" />
+                            <input class="w-full block rounded-md border-0 ring-2 ring-inset ring-stone-300 focus:ring-2 focus:ring-inset focus:ring-lime-600 py-2 px-3"
+                                type="email" id="email" name="email" required />
                         </div>
                         <div class="mb-3">
                             <label class="block text-base text-stone-500">Password</label>
-                            <input class="w-full block rounded-md border-0 ring-2 ring-inset ring-stone-300 focus:ring-2 focus:ring-inset focus:ring-lime-600 py-2 px-3" type="password" id="password"
-                                name="password" />
+                            <input class="w-full block rounded-md border-0 ring-2 ring-inset ring-stone-300 focus:ring-2 focus:ring-inset focus:ring-lime-600 py-2 px-3"
+                                type="password" id="password" name="password" required />
                         </div>
                         <div class="mb-3">
                             <label class="block text-base text-stone-500">Repeat password</label>
-                            <input class="w-full block rounded-md border-0 ring-2 ring-inset ring-stone-300 focus:ring-2 focus:ring-inset focus:ring-lime-600 py-2 px-3" type="password"
-                                id="password_repeat" name="password_repeat" />
+                            <input class="w-full block rounded-md border-0 ring-2 ring-inset ring-stone-300 focus:ring-2 focus:ring-inset focus:ring-lime-600 py-2 px-3"
+                                type="password" id="password_repeat" name="password_repeat" required />
                         </div>
                     </div>
                     <div class="w-full">
                         <div class="mb-3">
                             <label class="block text-base text-stone-500">First Name</label>
-                            <input class="w-full block rounded-md border-0 ring-2 ring-inset ring-stone-300 focus:ring-2 focus:ring-inset focus:ring-lime-600 py-2 px-3" type="text" id="first_name"
-                                name="first_name" />
+                            <input class="w-full block rounded-md border-0 ring-2 ring-inset ring-stone-300 focus:ring-2 focus:ring-inset focus:ring-lime-600 py-2 px-3"
+                                type="text" id="first_name" name="first_name" required />
                         </div>
                         <div class="mb-3">
                             <label class="block text-base text-stone-500">Last Name</label>
-                            <input class="w-full block rounded-md border-0 ring-2 ring-inset ring-stone-300 focus:ring-2 focus:ring-inset focus:ring-lime-600 py-2 px-3" type="text" id="last_name"
-                                name="last_name" />
+                            <input class="w-full block rounded-md border-0 ring-2 ring-inset ring-stone-300 focus:ring-2 focus:ring-inset focus:ring-lime-600 py-2 px-3"
+                                type="text" id="last_name" name="last_name" required />
                         </div>
                         <div class="mb-3">
                             <label class="block text-base text-stone-500">Phone Number</label>
-                            <input class="w-full block rounded-md border-0 ring-2 ring-inset ring-stone-300 focus:ring-2 focus:ring-inset focus:ring-lime-600 py-2 px-3" type="tel" id="phone_number"
-                                name="phone_number" />
+                            <input class="w-full block rounded-md border-0 ring-2 ring-inset ring-stone-300 focus:ring-2 focus:ring-inset focus:ring-lime-600 py-2 px-3"
+                                type="tel" id="phone_number" name="phone_number" required />
                         </div>
                         <div class="pt-3 mb-3 border-b"></div>
                         <div class="mb-3">
                             <label class="block text-base text-stone-500">Military Affiliation</label>
-                            <select class="w-full block rounded-md border-0 ring-2 ring-inset ring-stone-300 focus:ring-2 focus:ring-inset focus:ring-lime-600 py-2 px-3" id="affiliation"
-                                name="affiliation">
+                            <select class="w-full block rounded-md border-0 ring-2 ring-inset ring-stone-300 focus:ring-2 focus:ring-inset focus:ring-lime-600 py-2 px-3"
+                                id="affiliation" name="affiliation" required>
                                 <option value=""></option>
                                 <option value="army">Army</option>
                                 <option value="navy">Navy</option>
@@ -65,12 +65,13 @@
                         </div>
                         <div class="mb-3">
                             <label class="block text-base text-stone-500">Military Rank</label>
-                            <input class="w-full block rounded-md border-0 ring-2 ring-inset ring-stone-300 focus:ring-2 focus:ring-inset focus:ring-lime-600 py-2 px-3" type="text" id="rank"
-                                name="rank" />
+                            <input class="w-full block rounded-md border-0 ring-2 ring-inset ring-stone-300 focus:ring-2 focus:ring-inset focus:ring-lime-600 py-2 px-3"
+                                type="text" id="rank" name="rank" required />
                         </div>
                         <div class="mb-3">
                             <label class="block text-base text-stone-500">Status</label>
-                            <select class="w-full block rounded-md border-0 ring-2 ring-inset ring-stone-300 focus:ring-2 focus:ring-inset focus:ring-lime-600 py-2 px-3" id="status" name="status">
+                            <select class="w-full block rounded-md border-0 ring-2 ring-inset ring-stone-300 focus:ring-2 focus:ring-inset focus:ring-lime-600 py-2 px-3"
+                                id="status" name="status" required>
                                 <option value=""></option>
                                 <option value="active">Active Duty</option>
                                 <option value="veteran">Veteran</option>
@@ -81,10 +82,11 @@
                 </div>
                 <div class="mt-6 text-center">
                     <button type="submit" class="transition self-center text-xs lg:text-sm font-bold uppercase
-                                bg-lime-600 hover:bg-lime-800 text-stone-50 hover:text-stone-100
-                                drop-shadow hover:drop-shadow-md rounded-md px-3 py-2">Register Account</button>
-                    <p class="mt-2">Already have an account? <a class="text-yellow-500 underline hover:text-yellow-700"
-                            href="/login">Log in here!</a></p>
+                    bg-lime-600 hover:bg-lime-800 text-stone-50 hover:text-stone-100
+                    drop-shadow hover:drop-shadow-md rounded-md px-3 py-2">Register Account</button>
+                    <p class="mt-2">Already have an account? 
+                        <a class="text-yellow-500 underline hover:text-yellow-700" href="/login">Log in here!</a>
+                    </p>
                 </div>
             </form>
         </div>
