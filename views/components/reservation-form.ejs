@@ -1,30 +1,38 @@
-<form action="/reservation" method="post">
+<%
+    var reservationObj = reservationObj === undefined ? {} : reservationObj;
+%>
+
+<form action="/reservation-summary" method="post">
     <div class="mb-3">
         <label class="block text-base text-stone-500">Date</label>
-        <input class="w-full block rounded-md border-0 ring-2 ring-inset ring-stone-300 focus:ring-2 focus:ring-inset focus:ring-lime-600 py-2 px-3" type="date" id="date" name="date" />
+        <input class="w-full block rounded-md border-0 ring-2 ring-inset ring-stone-300 focus:ring-2 focus:ring-inset focus:ring-lime-600 py-2 px-3"
+            type="date" id="date" name="date" value="<%= reservationObj.date %>" required />
     </div>
     <div class="mb-3">
         <label class="block text-base text-stone-500">Nights</label>
-        <input class="w-full block rounded-md border-0 ring-2 ring-inset ring-stone-300 focus:ring-2 focus:ring-inset focus:ring-lime-600 py-2 px-3" type="number" id="nights" min="1" name="nights" />
+        <input class="w-full block rounded-md border-0 ring-2 ring-inset ring-stone-300 focus:ring-2 focus:ring-inset focus:ring-lime-600 py-2 px-3"
+            type="number" id="nights" name="nights" min="1" value="<%= reservationObj.nights %>" required />
     </div>
     <div class="mb-3">
         <label class="block text-base text-stone-500">RV Size</label>
-        <select class="w-full block rounded-md border-0 ring-2 ring-inset ring-stone-300 focus:ring-2 focus:ring-inset focus:ring-lime-600 py-2 px-3" id="size" name="size">
-        <option value=""></option>
-        <option value="40">Compact (40 ft)</option>
-        <option value="52">Standard (52 ft)</option>
-        <option value="62">Large (62 ft)</option>
-        <option value="tent_on_wheels">Tent on Wheels</option>
-        <option value="pop_up_trailer">Pop-Up Trailer</option>
-        <option value="tent">Tent site</option>
-    </select>
+        <select class="w-full block rounded-md border-0 ring-2 ring-inset ring-stone-300 focus:ring-2 focus:ring-inset focus:ring-lime-600 py-2 px-3"
+            id="size" name="size" required>
+            <option value=""></option>
+            <option value="40" <% if (reservationObj.size === "40") { %>selected<% } %>>Compact (40 ft)</option>
+            <option value="52" <% if (reservationObj.size === "52") { %>selected<% } %>>Standard (52 ft)</option>
+            <option value="62" <% if (reservationObj.size === "62") { %>selected<% } %>>Large (62 ft)</option>
+            <option value="tent_on_wheels" <% if (reservationObj.size === "tent_on_wheels") { %>selected<% } %>>Tent on Wheels</option>
+            <option value="pop_up_trailer" <% if (reservationObj.size === "pop_up_trailer") { %>selected<% } %>>Pop-Up Trailer</option>
+            <option value="tent" <% if (reservationObj.size === "tent") { %>selected<% } %>>Tent site</option>
+        </select>
     </div>
     <div class="mb-3 flex flex-row flex-nowrap items-center justify-end">
-        <input id="terms" name="terms" type="checkbox" class="h-6 w-6 rounded border-2 border-stone-300 text-lime-600 focus:ring-lime-600 mr-2" />
+        <input id="terms" name="terms" type="checkbox"
+            class="h-6 w-6 rounded border-2 border-stone-300 text-lime-600 focus:ring-lime-600 mr-2" required />
         <label for="terms" class="text-stone-500">
-        I agree to the 
-        <a href="/policies" target="_blank" class="text-yellow-500 underline hover:text-yellow-700">FamCamp Terms & Conditions</a>
-    </label>
+            I agree to the
+            <a href="/policies" target="_blank" class="text-yellow-500 underline hover:text-yellow-700">FamCamp Terms & Conditions</a>
+        </label>
     </div>
     <div class="mt-6 text-center">
         <button type="submit" class="transition self-center text-xs lg:text-sm font-bold uppercase

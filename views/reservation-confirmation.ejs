@@ -1,11 +1,50 @@
+<% 
+    //prettify variables for the view
+
+    var date = new Date(reservationObj.date + " 00:00:00 MDT").toLocaleDateString("en-US", {
+        dateStyle: "medium"
+    });
+
+    var amount = reservationObj.amount.toLocaleString('en-US', {
+        style: 'currency',
+        currency: 'USD',
+    });
+%>
+
 <%- include('./layout/header'); %>
 
     <main class="container mx-auto md:my-8 lg:my-10 px-3 py-4">
         <div class="max-w-5xl mx-auto bg-stone-50 rounded-lg drop-shadow px-10 py-8">
             <h1 class="subtitle text-6xl">Reservation confirmed</h1>
-            <p class="mt-8 mb-8">
-                We'll see you on <strong>March 31st, 2023</strong>!
+            <p class="mt-8 mb-5">
+                We'll see you on <strong><%= date %></strong> for <strong><%- reservationObj.nights %></strong> nights!
             </p>
+            <div class="max-w-lg mx-auto bg-stone-100 text-base mb-8 p-5">
+                <div class="flex flex-row flex-nowrap justify-between mb-3">
+                    <label class="block text-sm text-stone-500">Reservation Name</label>
+                    <p class="py-1 px-3 text-stone-700 bg-stone-100">
+                        <%- reservationObj.cardholder_name %>
+                    </p>
+                </div>
+                <div class="flex flex-row flex-nowrap justify-between mb-3">
+                    <label class="block text-sm text-stone-500">Transaction Number</label>
+                    <p class="py-1 px-3 text-stone-700 bg-stone-100">
+                        <%- reservationObj.payment_id %>
+                    </p>
+                </div>
+                <div class="flex flex-row flex-nowrap justify-between mb-3">
+                    <label class="block text-sm text-stone-500">Card Number</label>
+                    <p class="py-1 px-3 text-stone-700 bg-stone-100">
+                        <%- reservationObj.card_number %>
+                    </p>
+                </div>
+                <div class="flex flex-row flex-nowrap justify-between">
+                    <label class="block text-sm text-stone-500">Paid</label>
+                    <p class="py-1 px-3 text-stone-700 bg-stone-100">
+                        <%- amount %>
+                    </p>
+                </div>
+            </div>
             <p class="mt-2 mb-4">
                 In the meantime, check out our park <a class="text-yellow-500 underline hover:text-yellow-700"
                     href="/information">information</a> and remember to review our <a

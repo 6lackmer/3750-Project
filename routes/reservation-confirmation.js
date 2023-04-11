@@ -2,6 +2,25 @@ var express = require('express');
 var router = express.Router();
 var dbCon = require('./../lib/database');
 
+//////////////////////// TEST POST METHOD ////////////////////////
+router.post('/', function(req, res, next) {
+    var reservationObj = {
+        date: req.body.date,
+        nights: req.body.nights,
+        size: req.body.size,
+        amount: req.body.amount || 50,
+        cardholder_name: req.body.cardholder_name,
+        // address1: req.body.address1,
+        // address2: req.body.address2,
+        // state: req.body.state,
+        //zip_code: req.body.zip_code,
+        card_number: req.body.card_number.length >= 4 ? "************" + req.body.card_number.slice(-4) : req.body.card_number,
+        payment_id: 1000 //get id from database
+    };
+
+    console.log("reservation-confirmation.js: POST")
+    res.render('reservation-confirmation', { reservationObj });
+});
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -50,9 +69,5 @@ router.get('/', function(req, res, next) {
 
     });
 });
-
-
-
-
 
 module.exports = router;

@@ -2,6 +2,18 @@ var express = require('express');
 var router = express.Router();
 var dbCon = require('./../lib/database');
 
+//////////////////////// TEST POST METHOD ////////////////////////
+router.post('/', function(req, res, next) {
+    var reservationObj = {
+        date: req.body.date,
+        nights: req.body.nights,
+        size: req.body.size,
+        amount: req.body.nights * 25
+    };
+
+    console.log("reservation-summary.js: POST");
+    res.render('reservation-summary', { reservationObj });
+});
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -69,7 +81,6 @@ router.get('/', function(req, res, next) {
     });
 });
 
-
 /* POST Cancellation page. */
 router.post('/', function(req, res, next) {
     console.log("reservation-details.js: POST");
@@ -92,6 +103,5 @@ router.post('/', function(req, res, next) {
 
     res.render('reservation-details', {});
 });
-
 
 module.exports = router;
