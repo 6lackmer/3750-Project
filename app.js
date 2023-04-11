@@ -28,6 +28,7 @@ var reservationHistoryRouter = require('./routes/user/history'); // User Reserva
 // Reservation Pages
 var reservationRouter = require('./routes/reservation'); // Reservation Form
 var reservationConfirmationRouter = require('./routes/reservation-confirmation'); // Reservation Confirmation Page
+var reservationSummaryRouter = require('./routes/reservation-summary'); // Reservation Summary Page
 
 var app = express();
 
@@ -87,6 +88,7 @@ app.use('/history', reservationHistoryRouter);
 // Reservation Pages
 app.use('/reservation', reservationRouter);
 app.use('/reservation-confirmation', reservationConfirmationRouter);
+app.use('/reservation-summary', reservationSummaryRouter);
 
 app.get('/reservation-details', (req, res) => {
     res.render('reservation-details');

@@ -28,9 +28,12 @@ function formatDate(date) {
     return [year, month, day].join('-');
 }
 
+/* POST page. */
+router.post('/', function(req, res, next) {
+    console.log("reservation.js: POST");
 
-function createReservation(req) {
-    // Form Values
+    // Save Reservation in Database
+
     let arrivalDate = req.body.date;
     var numNights = parseInt(req.body.nights);
     let site_type = req.body.size;
@@ -74,7 +77,7 @@ function createReservation(req) {
         year = sqlDDate.getFullYear();
         let sqlDepartureDate = `${year}-${month}-${day}`;
 
-        if (site_type == "40" || site_type == "52" || site_type == "60") {
+        if (site_type == "40" || site_type == "52" || site_type == "62") {
             console.log("reservation.js: Personal Trailer Site");
             let sql = "CALL get_availability_by_date_and_size('" + sqlArrivalDate + "', '" + sqlDepartureDate + "', '" + site_type + "')";
             dbCon.query(sql, function(err, rows) {
@@ -96,13 +99,14 @@ function createReservation(req) {
                                 throw err;
                             } else {
                                 console.log("reservation.js: Reservation Saved Successfully!");
+                                req.session.currentReservation = rows[0][0]["last_insert_id()"];
 
-                                // Next we need to create the invoice and charge a card for payment
                                 req.session.save(function(err) {
                                     if (err) {
                                         throw err;
                                     }
-                                    console.log("register.js: Successful Registration, a session field is: " + req.session.user_id.toString());
+                                    console.log("reservation.js: Sending to Reservation summary Page");
+                                    res.redirect("reservation-summary");
                                 });
                             }
                         });
@@ -131,13 +135,14 @@ function createReservation(req) {
                                 throw err;
                             } else {
                                 console.log("reservation.js: Reservation Saved Successfully!");
+                                req.session.currentReservation = rows[0][0]["last_insert_id()"];
 
-                                // Next we need to create the invoice and charge a card for payment
                                 req.session.save(function(err) {
                                     if (err) {
                                         throw err;
                                     }
-                                    console.log("register.js: Successful Registration, a session field is: " + req.session.user_id.toString());
+                                    console.log("reservation.js: Sending to Reservation summary Page");
+                                    res.redirect("reservation-summary");
                                 });
                             }
                         });
@@ -145,43 +150,7 @@ function createReservation(req) {
                 }
             });
         }
-
-        let sql = "CALL get_reservations_from_account_id('" + req.session.user_id + "', '0')";
-        dbCon.query(sql, function(err, rows) {
-            if (err) {
-                throw err;
-            }
-            var reservations = rows[0];
-
-            maxID = 0;
-
-            for (var i = 0; i < reservations.length; i++) {
-                if (reservations[1].reservation_id > maxID) {
-                    maxID = reservations[1].reservation_id;
-                }
-            }
-
-            let sql = "CALL get_reservation_from_reservation_id('" + maxID + "')";
-            dbCon.query(sql, function(err, rows) {
-                if (err) {
-                    throw err;
-                }
-                //return rows[0][0].reservation_id;
-            });
-        });
     }
-}
-
-
-/* POST page. */
-router.post('/', function(req, res, next) {
-    console.log("reservation.js: POST");
-
-    // Save Reservation in Database
-
-    createReservation(req);
-
-    res.redirect("reservation-confirmation");
 });
 
 
