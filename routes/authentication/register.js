@@ -34,9 +34,11 @@ router.post('/', function(req, res, next) { // still to be modified
     const pcs = 0;
 
     invalidInput = false;
+    problemMessage = "Please Fill in All Fields Correctly";
 
     if (password1 != password2) {
         invalidInput = true;
+        problemMessage = "Passwords do not match!";
     } else if (username == "") {
         invalidInput = true;
     } else if (first_name == "") {
@@ -50,7 +52,7 @@ router.post('/', function(req, res, next) { // still to be modified
     }
 
     if (invalidInput) {
-        res.render('authentication/register', { message: "Please Fill in All Fields Correctly" })
+        res.render('authentication/register', { message: problemMessage })
     } else {
         // Generate Hash and Salt if needed
         let saltValues = CryptoJS.lib.WordArray.random(8);

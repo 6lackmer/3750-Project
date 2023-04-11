@@ -53,16 +53,6 @@ router.get('/', function(req, res, next) {
 
 
 
-/* POST Cancellation page. */
-router.post('/', function(req, res, next) {
-    console.log("reservation-details.js: POST");
 
-    // This method will be used to cancel a
-    // Guest's Reservation
-
-    //Waiting for configuration of Stripe Payment System
-
-    res.render('reservation-details', {});
-});
 
 module.exports = router;
