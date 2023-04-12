@@ -1691,6 +1691,10 @@ body {
     min-height: 40rem;
   }
 
+  .lg\:flex-nowrap{
+    flex-wrap: nowrap;
+  }
+
   .lg\:pl-10{
     padding-left: 2.5rem;
   }

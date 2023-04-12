@@ -39,8 +39,8 @@ function validateInput(req, res) {
         state: req.body.state,
         zip_code: req.body.zip_code,
         card_number: req.body.card_number.length >= 4 ? "************" + req.body.card_number.slice(-4) : req.body.card_number,
-        exp_month: req.body.expiration_month,
-        exp_year: req.body.expiration_year,
+        exp_month: req.body.expiration_date.slice(-2),
+        exp_year: req.body.expiration_date.slice(0, 4),
         security_code: req.body.security_code
     };
 
