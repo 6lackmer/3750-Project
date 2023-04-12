@@ -1,149 +1,129 @@
 <%- include('../layout/header'); %>
+<% function formatText(str) { %>
+    <% str = str.replace(/_/g, ' '); %>
+    <% return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase(); %>
+<% } %>
 
-<main class="container mx-auto md:my-8 lg:my-10 px-3 py-4">
-    <div class="max-w-5xl mx-auto bg-stone-50 rounded-lg drop-shadow px-10 py-8">
-        <dl class="">
-            <div class="flex flex-row justify-between mb-8">
-                <h2 class="subtitle text-5xl">Daily Report</h2>
-                <h3 class="text-lime-700 text-4xl text-center">MAR 31, 2023</h3>
-            </div>
-            
-            <div class="flex flex-row flex-wrap justify-center gap-x-6 gap-y-4">
-                <div class="mt-2 mb-4 px-4 py-2 flex flex-row flex-nowrap gap-2 justify-between bg-lime-400 rounded-full">
-                    <dt class="">Check-ins:</dt>
-                    <dd class="">2</dd>
+    <main class="container mx-auto md:my-8 lg:my-10 px-3 py-4">
+        <div class="max-w-5xl mx-auto bg-stone-50 rounded-lg drop-shadow px-10 py-8">
+            <dl class="">
+                <div class="flex flex-row justify-between mb-8">
+                    <h2 class="subtitle text-5xl">Daily Report</h2>
+                    <h3 class="text-lime-700 text-4xl text-center">
+                        <%= todaysDate %>
+                    </h3>
                 </div>
-                <div class="mt-2 mb-4 px-4 py-2 flex flex-row flex-nowrap gap-2 justify-between bg-lime-400 rounded-full">
-                    <dt class="">Check-outs:</dt>
-                    <dd class="">3</dd>
-                </div>
-                <div class="mt-2 mb-4 px-4 py-2 flex flex-row flex-nowrap gap-2 justify-between bg-lime-400 rounded-full">
-                    <dt class="">Occupied sites:</dt>
-                    <dd class="">14</dd>
-                </div>
-            </div>
-        </dl>
 
-        <div class="flex flex-row justify-between mt-10">
-            <h3 class="text-xl">Check-ins</h3>
-            <a href="#" class="transition self-center text-xs lg:text-sm font-bold uppercase
+                <div class="flex flex-row flex-wrap justify-center gap-x-6 gap-y-4">
+                    <div
+                        class="mt-2 mb-4 px-4 py-2 flex flex-row flex-nowrap gap-2 justify-between bg-lime-400 rounded-full">
+                        <dt class="">Check-ins:</dt>
+                        <dd class="">
+                            <%= checkInsToday.length %>
+                        </dd>
+                    </div>
+                    <div
+                        class="mt-2 mb-4 px-4 py-2 flex flex-row flex-nowrap gap-2 justify-between bg-lime-400 rounded-full">
+                        <dt class="">Check-outs:</dt>
+                        <dd class="">
+                            <%= checkOutsToday.length %>
+                        </dd>
+                    </div>
+                    <div
+                        class="mt-2 mb-4 px-4 py-2 flex flex-row flex-nowrap gap-2 justify-between bg-lime-400 rounded-full">
+                        <dt class="">Occupied sites:</dt>
+                        <dd class="">14</dd>
+                    </div>
+                </div>
+            </dl>
+
+            <div class="flex flex-row justify-between mt-10">
+                <h3 class="text-xl">Check-ins</h3>
+                <a href="#" class="transition self-center text-xs lg:text-sm font-bold uppercase
                             bg-lime-600 hover:bg-lime-800
                             text-stone-50 hover:text-stone-100
                             drop-shadow rounded-md px-3 py-2">Assign Sites Automatically</a>
-        </div>
-        <dl class="">
-            <div class="my-8 px-4 grid grid-cols-2 md:grid-cols-4 items-center gap-3 bg-stone-100 rounded-md drop-shadow">
-                <div class="mt-2 mb-4">
-                    <dt class="text-stone-500">Name</dt>
-                    <dd class="col-span-2">Natalie Mueller</dd>
-                </div>
-                <div class="mt-2 mb-4">
-                    <dt class="text-stone-500">Nights</dt>
-                    <dd class="col-span-2">4</dd>
-                </div>
-                <div class="mt-2 mb-4">
-                    <dt class="text-stone-500">RV Size</dt>
-                    <dd class="col-span-2">Compact</dd>
-                </div>
-                <div class="mt-2 mb-4 flex flex-row gap-2">
-                    <select class="w-24 rounded-md border-0 ring-2 ring-inset ring-stone-300 focus:ring-2 focus:ring-inset focus:ring-lime-600 py-2 px-3" type="date" id="date" name="date">
-                        <option value=""></option>
-                        <option value="">4</option>
-                        <option value="">5</option>
-                        <option value="">7</option>
-                        <option value="">12</option>
-                    </select>
-                    <a href="#" class="transition self-center text-xs lg:text-sm font-bold uppercase
+            </div>
+            <% for (let i = 0; i < checkInsToday.length; i++) { %>
+            <dl class="">
+                <div
+                    class="my-8 px-4 grid grid-cols-2 md:grid-cols-4 items-center gap-3 bg-stone-100 rounded-md drop-shadow">
+                    <div class="mt-2 mb-4">
+                        <dt class="text-stone-500">Name</dt>
+                        <dd class="col-span-2">
+                            <%= formatText(checkInsToday[i].f_name) + ' ' +
+                                formatText(checkInsToday[i].l_name) %>
+                        </dd>
+                    </div>
+                    <div class="mt-2 mb-4">
+                        <dt class="text-stone-500">Nights</dt>
+                        <dd class="col-span-2">
+                            <%= checkInsToday[i].num_nights %>
+                        </dd>
+                    </div>
+                    <div class="mt-2 mb-4">
+                        <dt class="text-stone-500">RV Size</dt>
+                        <dd class="col-span-2">
+                            <%= formatText(checkInsToday[i].site_type_name) %>
+                        </dd>
+                    </div>
+                    
+                    
+                    <div class="mt-2 mb-4">
+                        <dt class="text-stone-500">Site #</dt>
+                        <dd class="col-span-2"><%= checkInsToday[i].site_number %></dd>
+                    </div>
+                   
+                    <!-- <div class="mt-2 mb-4 flex flex-row gap-2">
+                        <select
+                            class="w-24 rounded-md border-0 ring-2 ring-inset ring-stone-300 focus:ring-2 focus:ring-inset focus:ring-lime-600 py-2 px-3"
+                            type="date" id="date" name="date">
+                            <option value=""></option>
+                            <option value="">4</option>
+                            <option value="">5</option>
+                            <option value="">7</option>
+                            <option value="">12</option>
+                        </select>
+                        <a href="#" class="transition self-center text-xs lg:text-sm font-bold uppercase
                         bg-lime-600 hover:bg-lime-800 text-stone-50 hover:text-stone-100
                         drop-shadow hover:drop-shadow-md rounded-md px-3 py-2">Assign Site</a>
+                    </div> -->
                 </div>
-            </div>
-        </dl>
-        <dl class="">
-            <div class="my-8 px-4 grid grid-cols-2 md:grid-cols-4 items-center gap-3 bg-stone-100 rounded-md drop-shadow">
-                <div class="mt-2 mb-4">
-                    <dt class="text-stone-500">Name</dt>
-                    <dd class="col-span-2">Sailor Moon</dd>
-                </div>
-                <div class="mt-2 mb-4">
-                    <dt class="text-stone-500">Nights</dt>
-                    <dd class="col-span-2">1</dd>
-                </div>
-                <div class="mt-2 mb-4">
-                    <dt class="text-stone-500">RV Size</dt>
-                    <dd class="col-span-2">Truck Camper</dd>
-                </div>
-                <div class="mt-2 mb-4">
-                    <dt class="text-stone-500">Site #</dt>
-                    <dd class="col-span-2">12B</dd>
-                </div>
-            </div>
-        </dl>
+            </dl>
+            <% } %>
 
-        <h3 class="text-xl mt-10">Check-outs</h3>
-        <dl class="">
-            <div class="my-8 px-4 grid grid-cols-2 md:grid-cols-4 items-center gap-3 bg-stone-100 rounded-md drop-shadow">
-                <div class="mt-2 mb-4">
-                    <dt class="text-stone-500">Name</dt>
-                    <dd class="col-span-2">Son Goku</dd>
-                </div>
-                <div class="mt-2 mb-4">
-                    <dt class="text-stone-500">Nights</dt>
-                    <dd class="col-span-2">14</dd>
-                </div>
-                <div class="mt-2 mb-4">
-                    <dt class="text-stone-500">RV Size</dt>
-                    <dd class="col-span-2">Large</dd>
-                </div>
-                <div class="mt-2 mb-4">
-                    <dt class="text-stone-500">Site #</dt>
-                    <dd class="col-span-2">42</dd>
-                </div>
-            </div>
-        </dl>
-        <dl class="">
-            <div class="my-8 px-4 grid grid-cols-2 md:grid-cols-4 items-center gap-3 bg-stone-100 rounded-md drop-shadow">
-                <div class="mt-2 mb-4">
-                    <dt class="text-stone-500">Name</dt>
-                    <dd class="col-span-2">Sakura Kinomoto</dd>
-                </div>
-                <div class="mt-2 mb-4">
-                    <dt class="text-stone-500">Nights</dt>
-                    <dd class="col-span-2">3</dd>
-                </div>
-                <div class="mt-2 mb-4">
-                    <dt class="text-stone-500">RV Size</dt>
-                    <dd class="col-span-2">Compact</dd>
-                </div>
-                <div class="mt-2 mb-4">
-                    <dt class="text-stone-500">Site #</dt>
-                    <dd class="col-span-2">33</dd>
-                </div>
-            </div>
-        </dl>
-        <dl class="">
-            <div class="my-8 px-4 grid grid-cols-2 md:grid-cols-4 items-center gap-3 bg-stone-100 rounded-md drop-shadow">
-                <div class="mt-2 mb-4">
-                    <dt class="text-stone-500">Name</dt>
-                    <dd class="col-span-2">Monkey D. Luffy</dd>
-                </div>
-                <div class="mt-2 mb-4">
-                    <dt class="text-stone-500">Nights</dt>
-                    <dd class="col-span-2">8</dd>
-                </div>
-                <div class="mt-2 mb-4">
-                    <dt class="text-stone-500">RV Size</dt>
-                    <dd class="col-span-2">Standard</dd>
-                </div>
-                <div class="mt-2 mb-4">
-                    <dt class="text-stone-500">Site #</dt>
-                    <dd class="col-span-2">17</dd>
-                </div>
-            </div>
-        </dl>
+            <h3 class="text-xl mt-10">Check-outs</h3>
+            <% for (let i = 0; i < checkOutsToday.length; i++) { %>
+                <dl class="">
+                    <div
+                        class="my-8 px-4 grid grid-cols-2 md:grid-cols-4 items-center gap-3 bg-stone-100 rounded-md drop-shadow">
+                        <div class="mt-2 mb-4">
+                            <dt class="text-stone-500">Name</dt>
+                            <dd class="col-span-2">
+                                <%= formatText(checkOutsToday[i].f_name) + ' ' +
+                                    formatText(checkOutsToday[i].l_name) %>
+                            </dd>
+                        </div>
+                        <div class="mt-2 mb-4">
+                            <dt class="text-stone-500">Nights</dt>
+                            <dd class="col-span-2">
+                                <%= checkOutsToday[i].num_nights %>
+                            </dd>
+                        </div>
+                        <div class="mt-2 mb-4">
+                            <dt class="text-stone-500">RV Size</dt>
+                            <dd class="col-span-2">
+                                <%= formatText(checkOutsToday[i].site_type_name) %>
+                            </dd>
+                        </div>
+                        <div class="mt-2 mb-4">
+                            <dt class="text-stone-500">Site #</dt>
+                            <dd class="col-span-2"><%= checkOutsToday[i].site_number %></dd>
+                        </div>
+                    </div>
+                </dl>
+            <% } %>
+        </div>
+    </main>
 
-
-    </div>
-</main>
-
-<%- include('../layout/footer'); %>
+    <%- include('../layout/footer'); %>
