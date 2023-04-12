@@ -36,6 +36,7 @@ function validateInput(req, res) {
         cardholder_name: req.body.cardholder_name,
         address1: req.body.address1,
         address2: req.body.address2,
+        city: req.body.city,
         state: req.body.state,
         zip_code: req.body.zip_code,
         card_number: req.body.card_number.length >= 4 ? "************" + req.body.card_number.slice(-4) : req.body.card_number,
