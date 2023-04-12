@@ -39,10 +39,6 @@
 
             <div class="flex flex-row justify-between mt-10">
                 <h3 class="text-xl">Check-ins</h3>
-                <a href="#" class="transition self-center text-xs lg:text-sm font-bold uppercase
-                            bg-lime-600 hover:bg-lime-800
-                            text-stone-50 hover:text-stone-100
-                            drop-shadow rounded-md px-3 py-2">Assign Sites Automatically</a>
             </div>
             <% for (let i = 0; i < checkInsToday.length; i++) { %>
             <dl class="">
@@ -73,21 +69,6 @@
                         <dt class="text-stone-500">Site #</dt>
                         <dd class="col-span-2"><%= checkInsToday[i].site_number %></dd>
                     </div>
-                   
-                    <!-- <div class="mt-2 mb-4 flex flex-row gap-2">
-                        <select
-                            class="w-24 rounded-md border-0 ring-2 ring-inset ring-stone-300 focus:ring-2 focus:ring-inset focus:ring-lime-600 py-2 px-3"
-                            type="date" id="date" name="date">
-                            <option value=""></option>
-                            <option value="">4</option>
-                            <option value="">5</option>
-                            <option value="">7</option>
-                            <option value="">12</option>
-                        </select>
-                        <a href="#" class="transition self-center text-xs lg:text-sm font-bold uppercase
-                        bg-lime-600 hover:bg-lime-800 text-stone-50 hover:text-stone-100
-                        drop-shadow hover:drop-shadow-md rounded-md px-3 py-2">Assign Site</a>
-                    </div> -->
                 </div>
             </dl>
             <% } %>

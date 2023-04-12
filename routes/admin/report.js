@@ -60,7 +60,6 @@ router.get('/', async function (req, res, next) {
             let checkInsToday = await getCheckInsToday();
             let checkOutsToday = await getCheckOutsToday();
             //  TODO: get occupied spots number
-            //  TODO: get the site id's to assign the numbers to 
 
             res.render('admin/report', { todaysDate: formattedDate, checkInsToday: checkInsToday, checkOutsToday: checkOutsToday });
         } catch (err) {
