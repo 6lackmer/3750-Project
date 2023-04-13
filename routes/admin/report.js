@@ -14,7 +14,7 @@ function getCheckInsToday() {
         "   WHERE start_date = CURDATE();";
 
     return new Promise((resolve, reject) => {
-        dbCon.query(sql, function (err, rows) {
+        dbCon.query(sql, function(err, rows) {
             if (err) {
                 console.log(err.message);
                 reject(err);
@@ -37,7 +37,7 @@ function getCheckOutsToday() {
         "   WHERE end_date = CURDATE();";
 
     return new Promise((resolve, reject) => {
-        dbCon.query(sql, function (err, rows) {
+        dbCon.query(sql, function(err, rows) {
             if (err) {
                 console.log(err.message);
                 reject(err);
@@ -48,7 +48,7 @@ function getCheckOutsToday() {
     });
 }
 
-router.get('/', async function (req, res, next) {
+router.get('/', async function(req, res, next) {
     if (req.session.user.account_type == 'employee') {
         console.log('report.js: GET');
 
@@ -70,6 +70,31 @@ router.get('/', async function (req, res, next) {
     } else {
         res.redirect('/');
     }
+});
+
+router.post('/', function(req, res, next) {
+    console.log("report.js: POST");
+
+    const current_reservation = req.body.reservation_id;
+    const action_id = req.body.action_id;
+    if (action_id = 1) { // Check in
+        let sql = "CALL modify_reservation('" + current_reservation + "', '', '', 'In');";
+        dbCon.query(sql, function(err, rows) {
+            if (err) {
+                throw err;
+            }
+            res.redirect('admin/report');
+        });
+    } else {
+        let sql = "CALL modify_reservation('" + current_reservation + "', '', '', 'Out');";
+        dbCon.query(sql, function(err, rows) {
+            if (err) {
+                throw err;
+            }
+            res.redirect('admin/report');
+        });
+    }
+
 });
 
 module.exports = router;

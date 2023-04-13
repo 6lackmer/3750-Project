@@ -119,7 +119,7 @@ function renderConfirmationPage(req, res) {
 
         // Generate start_date
         var sqlADate = new Date(req.body.date);
-        let day = sqlADate.getDate();
+        let day = sqlADate.getDate() + 1;
         let month = sqlADate.getMonth() + 1;
         let year = sqlADate.getFullYear();
         const start_date = `${year}-${month}-${day}`;
@@ -127,7 +127,7 @@ function renderConfirmationPage(req, res) {
         // Generate end_date
         let tempdepartureDate = addDays(req.body.date, parseInt(req.body.nights));
         var sqlDDate = new Date(formatDate(tempdepartureDate));
-        day = sqlDDate.getDate();
+        day = sqlDDate.getDate() + 1;
         month = sqlDDate.getMonth() + 1;
         year = sqlDDate.getFullYear();
         const end_date = `${year}-${month}-${day}`;
