@@ -2,53 +2,19 @@ var express = require('express');
 var router = express.Router();
 var dbCon = require('../../lib/database');
 
-function getCheckInsToday() {
-    sql =
-        "SELECT a.f_name, a.l_name, r.num_nights, s_type.site_type_name, s.site_number FROM reservation AS r\n" +
-        "   INNER JOIN account as a \n" +
-        "       ON r.account_id = a.account_id \n" +
-        "   INNER JOIN site as s \n" +
-        "       ON r.site_id = s.site_id \n" +
-        "   INNER JOIN site_type as s_type \n" +
-        "       ON s.site_type_id = s_type.site_type_id \n" +
-        "   WHERE start_date = CURDATE();";
-
+function callProcedure(sql){
     return new Promise((resolve, reject) => {
-        dbCon.query(sql, function(err, rows) {
+        dbCon.query(sql, function (err, rows) {
             if (err) {
                 console.log(err.message);
                 reject(err);
             } else {
-                resolve(rows);
+                resolve(rows); // Extract the reservation_count value directly here
             }
         });
     });
 }
-
-function getCheckOutsToday() {
-    sql =
-        "SELECT a.f_name, a.l_name, r.num_nights, s_type.site_type_name, s.site_number FROM reservation AS r\n" +
-        "   INNER JOIN account as a \n" +
-        "       ON r.account_id = a.account_id \n" +
-        "   INNER JOIN site as s \n" +
-        "       ON r.site_id = s.site_id \n" +
-        "   INNER JOIN site_type as s_type \n" +
-        "       ON s.site_type_id = s_type.site_type_id \n" +
-        "   WHERE end_date = CURDATE();";
-
-    return new Promise((resolve, reject) => {
-        dbCon.query(sql, function(err, rows) {
-            if (err) {
-                console.log(err.message);
-                reject(err);
-            } else {
-                resolve(rows);
-            }
-        });
-    });
-}
-
-router.get('/', async function(req, res, next) {
+router.get('/', async function (req, res, next) {
     if (req.session.user.account_type == 'employee') {
         console.log('report.js: GET');
 
@@ -57,29 +23,33 @@ router.get('/', async function(req, res, next) {
         const formattedDate = `${monthNames[currentDate.getMonth()]} ${currentDate.getDate()}, ${currentDate.getFullYear()}`;
 
         try {
-            let checkInsToday = await getCheckInsToday();
-            let checkOutsToday = await getCheckOutsToday();
-            //  TODO: get occupied spots number
+            let checkInsToday = await callProcedure("CALL get_check_ins_today();");
+            checkInsToday = checkInsToday[0]
 
-            res.render('admin/report', { todaysDate: formattedDate, checkInsToday: checkInsToday, checkOutsToday: checkOutsToday });
+            let checkOutsToday = await callProcedure("CALL get_check_outs_today();");
+            checkOutsToday = checkOutsToday[0]
+
+            let reservationCount = await callProcedure("CALL get_todays_reservations_count();");
+            reservationCount = reservationCount[0][0].todays_count
+
+            res.render('admin/report', { todaysDate: formattedDate, checkInsToday: checkInsToday, checkOutsToday: checkOutsToday, reservationCount: reservationCount });
         } catch (err) {
             console.log(err.message);
             next(err); // Pass the error to the next middleware
         }
-
     } else {
         res.redirect('/');
     }
 });
 
-router.post('/', function(req, res, next) {
+router.post('/', function (req, res, next) {
     console.log("report.js: POST");
 
     const current_reservation = req.body.reservation_id;
     const action_id = req.body.action_id;
     if (action_id = 1) { // Check in
         let sql = "CALL modify_reservation('" + current_reservation + "', '', '', 'In');";
-        dbCon.query(sql, function(err, rows) {
+        dbCon.query(sql, function (err, rows) {
             if (err) {
                 throw err;
             }
@@ -87,14 +57,13 @@ router.post('/', function(req, res, next) {
         });
     } else {
         let sql = "CALL modify_reservation('" + current_reservation + "', '', '', 'Out');";
-        dbCon.query(sql, function(err, rows) {
+        dbCon.query(sql, function (err, rows) {
             if (err) {
                 throw err;
             }
             res.redirect('admin/report');
         });
     }
-
 });
 
 module.exports = router;
