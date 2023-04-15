@@ -2,9 +2,9 @@ var express = require('express');
 var router = express.Router();
 var dbCon = require('../../lib/database');
 
-function sqlCall(sql){
+function sqlCall(sql) {
     return new Promise((resolve, reject) => {
-        dbCon.query(sql, function (err, rows) {
+        dbCon.query(sql, function(err, rows) {
             if (err) {
                 console.log(err.message);
                 reject(err);
@@ -16,7 +16,7 @@ function sqlCall(sql){
 }
 
 // GET home page.
-router.get('/', async function (req, res, next) {
+router.get('/', async function(req, res, next) {
     if (req.session.loggedIn == true) {
         console.log('history.js: GET');
 
