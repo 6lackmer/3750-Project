@@ -2,34 +2,37 @@ var express = require('express');
 var router = express.Router();
 var dbCon = require('../../lib/database');
 
-/* GET home page. */
-router.get('/', function(req, res, next) {
-    console.log('history.js: GET');
-
-    let user_id = req.session.user_id;
-
-    ReservationsObj = {}
-
-    let sql = "CALL get_reservations_from_account_id('" + user_id + "', '1')";
-    dbCon.query(sql, function(err, rows) {
-        if (err) {
-            throw err;
-        }
-        console.log(rows[0]);
-        ReservationsObj.pastReservations = rows[0];
-
-        let sql = "CALL get_reservations_from_account_id('" + user_id + "', '2')";
-        dbCon.query(sql, function(err, rows) {
+function sqlCall(sql){
+    return new Promise((resolve, reject) => {
+        dbCon.query(sql, function (err, rows) {
             if (err) {
-                throw err;
+                console.log(err.message);
+                reject(err);
+            } else {
+                resolve(rows); // Extract the reservation_count value directly here
             }
-            console.log(rows[0]);
-            ReservationsObj.futureReservations = rows[0];
         });
-
     });
+}
 
-    res.render('user/history', ReservationsObj);
+// GET home page.
+router.get('/', async function (req, res, next) {
+    if (req.session.loggedIn == true) {
+        console.log('history.js: GET');
+
+        const user_id = req.session.user_id;
+
+        let pastReservations = await sqlCall("CALL get_reservations_from_account_id('" + user_id + "', '1')");
+        pastReservations = pastReservations[0];
+
+        let futureReservations = await sqlCall("CALL get_reservations_from_account_id('" + user_id + "', '2')");
+        futureReservations = futureReservations[0];
+
+        res.render('user/history', { 'pastReservations': pastReservations, 'futureReservations': futureReservations });
+    } else {
+        res.redirect('/');
+    }
 });
+
 
 module.exports = router;
