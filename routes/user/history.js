@@ -22,6 +22,7 @@ router.get('/', async function (req, res, next) {
 
         const user_id = req.session.user_id;
 
+        // 1 is past, 2 is future
         let pastReservations = await sqlCall("CALL get_reservations_from_account_id('" + user_id + "', '1')");
         pastReservations = pastReservations[0];
 

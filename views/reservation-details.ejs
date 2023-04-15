@@ -1,5 +1,12 @@
 <%- include('./layout/header'); %>
+<% function formatDate(date) { %>
+    <% const monthNames = ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"]; %>
+    <% const day = date.getDate(); %>
+    <% const month = monthNames[date.getMonth()]; %>
+    <% const year = date.getFullYear(); %>
 
+    <% return `${month} ${day}, ${year}`; %>
+<% } %>
 <main class="container mx-auto md:my-8 lg:my-10 px-3 py-4">
     <div class="max-w-5xl mx-auto bg-stone-50 rounded-lg drop-shadow px-10 py-8">
         <dl class="">
@@ -14,19 +21,19 @@
             </div>
             <div class="mt-2 mb-4 grid grid-cols-3 gap-3">
                 <dt class="text-stone-500">Date</dt>
-                <dd class="col-span-2">MAR 31, 2023</dd>
+                <dd class="col-span-2"><%= formatDate(reservationObj.start_date) %></dd>
             </div>
             <div class="mt-2 mb-4 grid grid-cols-3 gap-3">
                 <dt class="text-stone-500">Nights</dt>
-                <dd class="col-span-2">4</dd>
+                <dd class="col-span-2"><%= reservationObj.num_nights %></dd>
             </div>
             <div class="mt-2 mb-4 grid grid-cols-3 gap-3">
                 <dt class="text-stone-500">RV Size</dt>
-                <dd class="col-span-2">Compact</dd>
+                <dd class="col-span-2"><%= reservationObj.size_text %></dd>
             </div>
             <div class="mt-2 mb-4 grid grid-cols-3 gap-3">
                 <dt class="text-stone-500">Camp Site</dt>
-                <dd class="col-span-2">Unassigned</dd>
+                <dd class="col-span-2"><%= reservationObj.site_number %></dd>
             </div>
 
             <h2 class="text-2xl mt-10 mb-4">Payment Information</h2>

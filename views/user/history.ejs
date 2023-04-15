@@ -22,7 +22,7 @@
                 <dl class="">
                     <div class="my-8 flex flex-col md:flex-row flex-nowrap justify-evenly items-center gap-x-8 bg-stone-100 rounded-md drop-shadow">
                         <div class="mt-2 mb-4">
-                            <dt class="text-stone-500">Date</dt>
+                            <dt class="text-stone-500">Start Date</dt>
                             <dd class="col-span-2"><%= formatDate(futureReservations[i].start_date) %></dd>
                         </div>
                         <div class="mt-2 mb-4">
@@ -34,7 +34,7 @@
                             <dd class="col-span-2"><%= formatText(futureReservations[i].site_type_name) %></dd>
                         </div>
                         <div class="mt-2 mb-4">
-                            <a href="/reservation-details" class="transition self-center text-xs lg:text-sm font-bold uppercase
+                            <a href="/reservation-details?reservation_id=<%= futureReservations[i].reservation_id %>" class="transition self-center text-xs lg:text-sm font-bold uppercase
                                 bg-lime-600 hover:bg-lime-800 text-stone-50 hover:text-stone-100
                                 drop-shadow hover:drop-shadow-md rounded-md px-3 py-2">Reservation Details</a
                         </div>
@@ -47,7 +47,7 @@
             <dl class="">
                 <div class="my-8 flex flex-col md:flex-row flex-nowrap justify-evenly items-center gap-x-8 bg-stone-100 rounded-md drop-shadow">
                     <div class="mt-2 mb-4">
-                        <dt class="text-stone-500">Date</dt>
+                        <dt class="text-stone-500">Start Date</dt>
                         <dd class="col-span-2"><%= formatDate(pastReservations[i].start_date) %></dd>
                     </div>
                     <div class="mt-2 mb-4">
@@ -59,7 +59,7 @@
                         <dd class="col-span-2"><%= formatText(pastReservations[i].site_type_name) %></dd>
                     </div>
                     <div class="mt-2 mb-4">
-                        <a href="/reservation-details" class="transition self-center text-xs lg:text-sm font-bold uppercase
+                        <a href="/reservation-details?reservation_id=<%= pastReservations[i].reservation_id %>" class="transition self-center text-xs lg:text-sm font-bold uppercase
                             bg-lime-600 hover:bg-lime-800 text-stone-50 hover:text-stone-100
                             drop-shadow hover:drop-shadow-md rounded-md px-3 py-2">Reservation Details</a
                     </div>

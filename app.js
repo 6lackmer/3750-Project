@@ -29,6 +29,7 @@ var reservationHistoryRouter = require('./routes/user/history'); // User Reserva
 var reservationRouter = require('./routes/reservation'); // Reservation Form
 var reservationConfirmationRouter = require('./routes/reservation-confirmation'); // Reservation Confirmation Page
 var reservationSummaryRouter = require('./routes/reservation-summary'); // Reservation Summary Page
+var reservationDetailsRouter = require('./routes/reservation-details'); // User Reservation Details Page
 
 var app = express();
 
@@ -89,10 +90,7 @@ app.use('/history', reservationHistoryRouter);
 app.use('/reservation', reservationRouter);
 app.use('/reservation-confirmation', reservationConfirmationRouter);
 app.use('/reservation-summary', reservationSummaryRouter);
-
-app.get('/reservation-details', (req, res) => {
-    res.render('reservation-details');
-});
+app.use('/reservation-details', reservationDetailsRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
