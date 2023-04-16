@@ -226,7 +226,7 @@ function renderConfirmationPage(req, res) {
         const invoice_date = new Date();
         const invoice_amount = reservationObj.amount;
         const payment_amount = reservationObj.amount;
-        const payment_method = "Cash";
+        const payment_method = "Card";
         const invoice_type = "Payment";
         const memo = "";
 

@@ -12,12 +12,15 @@
                                         <dl class="">
                                             <div class="flex flex-row justify-between mb-8">
                                                 <h2 class="subtitle text-5xl">Reservation Details</h2>
-                                                <form method="post">
-                                                    <button type="submit" class="transition self-center text-xs lg:text-sm font-bold uppercase
+                                                <% if (reservationObj.status == "Booking" || reservationObj.status == "Reserved"){ %>
+                                                    <form method="post" action="/reservation-details">
+                                                        <input type="hidden" value="<%= reservationObj.reservation_id %>" name="reservation_id" id="reservation_id">
+                                                        <button type="submit" class="transition self-center text-xs lg:text-sm font-bold uppercase
                                 bg-red-600 hover:bg-red-800
                                 text-stone-50 hover:text-stone-100
                                 drop-shadow rounded-md px-3 py-2">Cancel</button>
-                                                </form>
+                                                    </form>
+                                                    <% } %>
                                             </div>
                                             <div class="mt-2 mb-4 grid grid-cols-3 gap-3">
                                                 <dt class="text-stone-500">Date</dt>

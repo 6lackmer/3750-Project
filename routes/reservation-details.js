@@ -16,7 +16,7 @@ function sqlCall(sql) {
     });
 }
 
-/* POST Cancellation page. */
+/* GET page. */
 router.get('/', async function(req, res, next) {
     console.log("reservation-details.js: POST");
 
@@ -41,10 +41,11 @@ router.get('/', async function(req, res, next) {
         */
         reservationObj = {}
 
+        reservationObj.reservation_id = user_info.reservation_id;
         reservationObj.start_date = user_info.start_date;
         reservationObj.num_nights = user_info.num_nights;
         reservationObj.site_number = user_info.site_number;
-        reservationObj.transaction_id = user_info.invoice_id;
+        reservationObj.status = user_info.status;
         // TODO: reservationObj.last_four = user_info.number
         if (user_info.site_type_id == 1) {
             if (user_info.max_trailer_length == "40") {
@@ -65,13 +66,10 @@ router.get('/', async function(req, res, next) {
         // Get Transaction Details:
         let transaction_info = await sqlCall("CALL get_invoice_from_reservation_id('" + submitted_reservation_id + "')");
         transaction_info = transaction_info[0][0];
-        console.log(transaction_info);
 
         reservationObj.transaction_id = transaction_info.invoice_id;
         reservationObj.card_holder = (transaction_info.f_name + " " + transaction_info.l_name);
         reservationObj.card_number = transaction_info.card_number;
-
-        console.log(reservationObj);
 
         console.log("reservationObj: " + reservationObj.start_date);
         res.render('reservation-details', { 'reservationObj': reservationObj });
@@ -80,5 +78,103 @@ router.get('/', async function(req, res, next) {
         res.redirect('/');
     }
 });
+
+function subtractDays(date, days) {
+    var result = new Date(date);
+    result.setDate(result.getDate() - days);
+    return result;
+}
+
+function formatDate(date) {
+    var d = new Date(date),
+        month = '' + (d.getMonth() + 1),
+        day = '' + d.getDate(),
+        year = d.getFullYear();
+
+    if (month.length < 2)
+        month = '0' + month;
+    if (day.length < 2)
+        day = '0' + day;
+
+    return [year, month, day].join('-');
+}
+
+router.post('/', async function(req, res, next) {
+    console.log("reservation-details.js: POST");
+
+    // Get Reservation Info, determine amount of refund
+    submitted_reservation_id = req.body.reservation_id;
+
+    let user_info = await sqlCall("CALL get_reservation_from_reservation_id('" + submitted_reservation_id + "')");
+    user_info = user_info[0][0];
+
+    // Get Transaction Details:
+    let transaction_info = await sqlCall("CALL get_invoice_from_reservation_id('" + submitted_reservation_id + "')");
+    transaction_info = transaction_info[0][0];
+    console.log(transaction_info);
+
+    // Documentation: if arrival date > 3 days away, all but $10 refunded
+    //                else, all but 1 full day refunded
+    const arrivalDate = formatDate(subtractDays(new Date(user_info.start_date), 3)); // arrival date minus 3 days
+    const currentDate = formatDate(new Date()); // todays date
+
+    // set Reservation status to Cancelled
+    let reservation_update = await sqlCall("Call modify_reservation('" + submitted_reservation_id + "', null, 'Cancelled', '');");
+
+
+    // Things needed for Invoice
+    // 1. reservation_id
+    // 2. card_id
+    // 3. invoice_date
+    // 4. invoice_amount
+    // 5. payment_amount
+    // 6. payment_method
+    // 7. invoice_type
+    // 8. memo
+
+    const card_id = transaction_info.card_id;
+    const invoice_date = new Date();
+    const payment_method = "Card";
+    const invoice_type = "Refund";
+    const memo = "Refunded by Customer";
+
+
+    let sql = "CALL add_invoice(?, ?, ?, ?, ?, ?, ?, ?);";
+
+    if (arrivalDate > currentDate) { // All but $10
+        const refund_amount = transaction_info.payment_amount - 10;
+        dbCon.query(sql, [submitted_reservation_id, card_id, invoice_date, refund_amount, refund_amount, payment_method, invoice_type, memo], function(err, rows) {
+            if (err) {
+                throw err;
+            } else {
+                console.log("reservation-confirmation.js: Refund Invoice Saved Successfully!");
+
+                res.redirect('/history');
+            }
+        });
+
+    } else { // All but a full day
+        // Determine what a full day is
+        let site_info = await sqlCall("CALL get_site_from_site_id('" + user_info.site_id + "')");
+        site_info = site_info[0][0];
+        const rate = site_info.rate;
+
+        const refund_amount = transaction_info.payment_amount - rate;
+        if (refund_amount == 0) {
+            res.redirect('/history');
+        } else {
+            dbCon.query(sql, [submitted_reservation_id, card_id, invoice_date, refund_amount, refund_amount, payment_method, invoice_type, memo], function(err, rows) {
+                if (err) {
+                    throw err;
+                } else {
+                    console.log("reservation-confirmation.js: Refund Invoice Saved Successfully!");
+
+                    res.redirect('/history');
+                }
+            });
+        }
+    }
+});
+
 
 module.exports = router;
