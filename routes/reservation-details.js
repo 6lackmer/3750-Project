@@ -24,7 +24,7 @@ router.get('/', async function(req, res, next) {
     const submitted_reservation_id = req.query.reservation_id;
     console.log("reservation id: " + submitted_reservation_id);
 
-    // pull reservation and user information from the url 
+    // pull reservation and user information
     let user_info = await sqlCall("CALL get_reservation_from_reservation_id('" + submitted_reservation_id + "')");
     user_info = user_info[0][0];
 
