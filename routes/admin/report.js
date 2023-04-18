@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 var dbCon = require('../../lib/database');
 
-function callProcedure(sql){
+function callProcedure(sql) {
     return new Promise((resolve, reject) => {
         dbCon.query(sql, function (err, rows) {
             if (err) {
@@ -35,7 +35,7 @@ router.get('/', async function (req, res, next) {
             res.render('admin/report', { todaysDate: formattedDate, checkInsToday: checkInsToday, checkOutsToday: checkOutsToday, reservationCount: reservationCount });
         } catch (err) {
             console.log(err.message);
-            next(err); 
+            next(err);
         }
     } else {
         res.redirect('/');
@@ -46,24 +46,16 @@ router.post('/', function (req, res, next) {
     console.log("report.js: POST");
 
     const current_reservation = req.body.reservation_id;
-    const action_id = req.body.action_id;
-    if (action_id == 1) { // Check in
-        let sql = "CALL modify_reservation('" + current_reservation + "', NULL, 'In', NULL);";
-        dbCon.query(sql, function (err, rows) {
-            if (err) {
-                throw err;
-            }
-            res.redirect('../admin/report');
-        });
-    } else {
-        let sql = "CALL modify_reservation('" + current_reservation + "', NULL, 'Out', NULL);";
-        dbCon.query(sql, function (err, rows) {
-            if (err) {
-                throw err;
-            }
-            res.redirect('../admin/report');
-        });
-    }
+    const action = req.body.action_id;
+
+    let sql = "CALL modify_reservation('" + current_reservation + "', NULL, '" + action + "', NULL);";
+    dbCon.query(sql, function (err, rows) {
+        if (err) {
+            throw err;
+        }
+        res.redirect('../admin/report');
+    });
+
 });
 
 module.exports = router;

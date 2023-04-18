@@ -77,7 +77,7 @@
                         <dd class="col-span-2">
                             <form action="../admin/report" method="POST">
                                 <input type="hidden" name="reservation_id" value="<%= checkInsToday[i].reservation_id %>">
-                                <input type="hidden" name="action_id" value="1"> <!-- Set action_id to 1 for check-INS -->
+                                <input type="hidden" name="action" value="In">
                                 <button type="submit" class="bg-red-500 text-white px-4 py-2 rounded-lg">Check-in</button>
                             </form>
                         </dd>
@@ -126,7 +126,7 @@
                             <dd class="col-span-2">
                                 <form action="../admin/report" method="POST">
                                     <input type="hidden" name="reservation_id" value="<%= checkOutsToday[i].reservation_id %>">
-                                    <input type="hidden" name="action_id" value="2"> <!-- Set action_id to 2 for check-outs -->
+                                    <input type="hidden" name="action" value="Out">
                                     <button type="submit" class="bg-red-500 text-white px-4 py-2 rounded-lg">Check-out</button>
                                 </form>
                             </dd>
