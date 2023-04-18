@@ -103,6 +103,15 @@
                             <dt class="text-stone-500">Site #</dt>
                             <dd class="col-span-2"><%= checkOutsToday[i].site_number %></dd>
                         </div>
+
+                        <!-- checkout btn -->
+                        <div class="mt-2 mb-4">
+                            <form action="/admin/report" method="POST">
+                                <input type="hidden" name="reservation_id" value="<%= checkOutsToday[i].reservation_id %>">
+                                <input type="hidden" name="action_id" value="2"> <!-- Set action_id to 2 for check-outs -->
+                                <button type="submit" class="bg-red-500 text-white px-4 py-2 rounded-lg">Check-out</button>
+                            </form>
+                        </div>
                     </div>
                 </dl>
                 <% } %>

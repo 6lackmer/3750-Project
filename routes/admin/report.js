@@ -35,7 +35,7 @@ router.get('/', async function (req, res, next) {
             res.render('admin/report', { todaysDate: formattedDate, checkInsToday: checkInsToday, checkOutsToday: checkOutsToday, reservationCount: reservationCount });
         } catch (err) {
             console.log(err.message);
-            next(err); // Pass the error to the next middleware
+            next(err); 
         }
     } else {
         res.redirect('/');
