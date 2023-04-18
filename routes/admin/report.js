@@ -47,21 +47,21 @@ router.post('/', function (req, res, next) {
 
     const current_reservation = req.body.reservation_id;
     const action_id = req.body.action_id;
-    if (action_id = 1) { // Check in
-        let sql = "CALL modify_reservation('" + current_reservation + "', '', '', 'In');";
+    if (action_id == 1) { // Check in
+        let sql = "CALL modify_reservation('" + current_reservation + "', NULL, 'In', NULL);";
         dbCon.query(sql, function (err, rows) {
             if (err) {
                 throw err;
             }
-            res.redirect('admin/report');
+            res.redirect('../admin/report');
         });
     } else {
-        let sql = "CALL modify_reservation('" + current_reservation + "', '', '', 'Out');";
+        let sql = "CALL modify_reservation('" + current_reservation + "', NULL, 'Out', NULL);";
         dbCon.query(sql, function (err, rows) {
             if (err) {
                 throw err;
             }
-            res.redirect('admin/report');
+            res.redirect('../admin/report');
         });
     }
 });
