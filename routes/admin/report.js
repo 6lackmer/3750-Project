@@ -46,9 +46,10 @@ router.post('/', function (req, res, next) {
     console.log("report.js: POST");
 
     const current_reservation = req.body.reservation_id;
-    const action = req.body.action_id;
+    const action = req.body.action;
 
     let sql = "CALL modify_reservation('" + current_reservation + "', NULL, '" + action + "', NULL);";
+    console.log(sql);
     dbCon.query(sql, function (err, rows) {
         if (err) {
             throw err;
