@@ -28,7 +28,8 @@ router.get('/', async function(req, res, next) {
     let user_info = await sqlCall("CALL get_reservation_from_reservation_id('" + submitted_reservation_id + "')");
     user_info = user_info[0][0];
 
-    if (req.session.loggedIn && req.session.user_id == user_info.account_id) { // Verify User is logged in
+    console.log("account_type: "+req.session.user.account_type)
+    if (req.session.loggedIn && (req.session.user_id == user_info.account_id || req.session.user.account_type == 'employee')) { // Verify User is logged in 
         console.log("reservation-details.js: User is logged in");
         /* Reservation Obj Needs:
         1: Arrival Date
