@@ -1,146 +1,157 @@
 <%- include('../layout/header'); %>
 <% function formatText(str) { %>
-    <% str = str.replace(/_/g, ' '); %>
+    <% str=str.replace(/_/g, ' ' ); %>
     <% return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase(); %>
 <% } %>
 
-    <main class="container mx-auto md:my-8 lg:my-10 px-3 py-4">
-        <div class="max-w-5xl mx-auto bg-stone-50 rounded-lg drop-shadow px-10 py-8">
-            <dl class="">
-                <div class="flex flex-row justify-between mb-8">
-                    <h2 class="subtitle text-5xl">Daily Report</h2>
-                    <h3 class="text-lime-700 text-4xl text-center">
-                        <%= todaysDate %>
-                    </h3>
-                </div>
-
-                <div class="flex flex-row flex-wrap justify-center gap-x-6 gap-y-4">
-                    <div
-                        class="mt-2 mb-4 px-4 py-2 flex flex-row flex-nowrap gap-2 justify-between bg-lime-400 rounded-full">
-                        <dt class="">Check-ins:</dt>
-                        <dd class="">
-                            <%= checkInsToday.length %>
-                        </dd>
-                    </div>
-                    <div
-                        class="mt-2 mb-4 px-4 py-2 flex flex-row flex-nowrap gap-2 justify-between bg-lime-400 rounded-full">
-                        <dt class="">Check-outs:</dt>
-                        <dd class="">
-                            <%= checkOutsToday.length %>
-                        </dd>
-                    </div>
-                    <div
-                        class="mt-2 mb-4 px-4 py-2 flex flex-row flex-nowrap gap-2 justify-between bg-lime-400 rounded-full">
-                        <dt class="">Occupied sites:</dt>
-                        <dd class="">
-                            <%= reservationCount %>
-                        </dd>
-                    </div>
-                </div>
-            </dl>
-
-            <div class="flex flex-row justify-between mt-10">
-                <h3 class="text-xl">Check-ins</h3>
+<main class="container mx-auto md:my-8 lg:my-10 px-3 py-4">
+    <div class="max-w-5xl mx-auto bg-stone-50 rounded-lg drop-shadow px-10 py-8">
+        <dl class="">
+            <div class="flex flex-row justify-between mb-8">
+                <h2 class="subtitle text-5xl">Daily Report</h2>
+                <h3 class="text-lime-700 text-4xl text-center">
+                    <%= todaysDate %>
+                </h3>
             </div>
-            <% for (let i = 0; i < checkInsToday.length; i++) { %>
-            <dl class="">
+
+            <div class="flex flex-row flex-wrap justify-center gap-x-6 gap-y-4">
                 <div
-                    class="my-8 px-4 grid grid-cols-2 md:grid-cols-4 items-center gap-3 bg-stone-100 rounded-md drop-shadow">
-                    <div class="mt-2 mb-4">
+                    class="mt-2 mb-4 px-4 py-2 flex flex-row flex-nowrap gap-2 justify-between bg-lime-400 rounded-full">
+                    <dt class="">Check-ins:</dt>
+                    <dd class="">
+                        <%= checkInsToday.length %>
+                    </dd>
+                </div>
+                <div
+                    class="mt-2 mb-4 px-4 py-2 flex flex-row flex-nowrap gap-2 justify-between bg-lime-400 rounded-full">
+                    <dt class="">Check-outs:</dt>
+                    <dd class="">
+                        <%= checkOutsToday.length %>
+                    </dd>
+                </div>
+                <div
+                    class="mt-2 mb-4 px-4 py-2 flex flex-row flex-nowrap gap-2 justify-between bg-lime-400 rounded-full">
+                    <dt class="">Occupied sites:</dt>
+                    <dd class="">
+                        <%= reservationCount %>
+                    </dd>
+                </div>
+            </div>
+        </dl>
+
+        <div class="flex flex-row justify-between mt-10">
+            <h3 class="text-xl">Check-ins</h3>
+        </div>
+        <% for (let i=0; i < checkInsToday.length; i++) { %>
+            <dl class="">
+                <div class="my-8 px-4 grid grid-cols-3 md:grid-cols-7 items-center gap-3 bg-stone-100 rounded-md drop-shadow">
+                    <div class="mt-2 mb-4 col-span-2 row-start-1 col-start-1">
                         <dt class="text-stone-500">Name</dt>
-                        <dd class="col-span-2">
+                        <dd class="">
                             <%= formatText(checkInsToday[i].f_name) + ' ' +
                                 formatText(checkInsToday[i].l_name) %>
                         </dd>
                     </div>
-                    <div class="mt-2 mb-4">
+                    <div class="mt-2 mb-4 row-start-2 md:row-start-1">
                         <dt class="text-stone-500">Nights</dt>
-                        <dd class="col-span-2">
+                        <dd class="">
                             <%= checkInsToday[i].num_nights %>
                         </dd>
                     </div>
-                    <div class="mt-2 mb-4">
+                    <div class="mt-2 mb-4 row-start-2 md:row-start-1">
                         <dt class="text-stone-500">RV Size</dt>
-                        <dd class="col-span-2">
+                        <dd class="">
                             <%= formatText(checkInsToday[i].site_type_name) %>
                         </dd>
                     </div>
-                    <div class="mt-2 mb-4">
+                    <div class="mt-2 mb-4 row-start-2 md:row-start-1">
                         <dt class="text-stone-500">Site #</dt>
-                        <dd class="col-span-2"><%= checkInsToday[i].site_number %></dd>
-                    </div>
-                    <!-- display the button if it hasnt been clicked -->
-                    <% if (checkInsToday[i].status != 'In') { %> 
-                    <div class="mt-2 mb-4">
-                    <div class="mt-2 mb-4">
-                        <dt class="text-stone-500">Action Needed:</dt>
-                        <dd class="col-span-2">
-                            <form action="../admin/report" method="POST">
-                                <input type="hidden" name="reservation_id" value="<%= checkInsToday[i].reservation_id %>">
-                                <input type="hidden" name="action" value="In">
-                                <button type="submit" class="bg-red-500 text-white px-4 py-2 rounded-lg">Check-in</button>
-                            </form>
+                        <dd class="">
+                            <%= checkInsToday[i].site_number %>
                         </dd>
                     </div>
-                    <% } else { %>
-                    <div class="mt-2 mb-4">
-                        <dt class="text-stone-500">Status</dt>
-                        <dd class="col-span-2">Checked <%= checkInsToday[i].status %></dd>
-                    </div>
-                    <% } %>
-                </div>
-            </dl>
-            <% } %>
-
-            <h3 class="text-xl mt-10">Check-outs</h3>
-                <% for (let i = 0; i < checkOutsToday.length; i++) { %>
-                <dl class="">
-                    <div
-                        class="my-8 px-4 grid grid-cols-2 md:grid-cols-4 items-center gap-3 bg-stone-100 rounded-md drop-shadow">
-                        <div class="mt-2 mb-4">
-                            <dt class="text-stone-500">Name</dt>
-                            <dd class="col-span-2">
-                                <%= formatText(checkOutsToday[i].f_name) + ' ' +
-                                    formatText(checkOutsToday[i].l_name) %>
-                            </dd>
-                        </div>
-                        <div class="mt-2 mb-4">
-                            <dt class="text-stone-500">Nights</dt>
-                            <dd class="col-span-2">
-                                <%= checkOutsToday[i].num_nights %>
-                            </dd>
-                        </div>
-                        <div class="mt-2 mb-4">
-                            <dt class="text-stone-500">RV Size</dt>
-                            <dd class="col-span-2">
-                                <%= formatText(checkOutsToday[i].site_type_name) %>
-                            </dd>
-                        </div>
-                        <div class="mt-2 mb-4">
-                            <dt class="text-stone-500">Site #</dt>
-                            <dd class="col-span-2"><%= checkOutsToday[i].site_number %></dd>
-                        </div>
-                        <% if (checkOutsToday[i].status != 'Out') { %> 
-                        <div class="mt-2 mb-4">
-                            <dt class="text-stone-500">Action Needed:</dt>
-                            <dd class="col-span-2">
+                    <!-- display the button if it hasnt been clicked -->
+                    <div class="mt-2 mb-4 row-start-1 col-start-3 col-span-1 md:col-span-2 md:col-start-6">
+                        <% if (checkInsToday[i].status !='In' ) { %>
+                            <dt class="text-stone-500">Action Needed</dt>
+                            <dd class="">
                                 <form action="../admin/report" method="POST">
-                                    <input type="hidden" name="reservation_id" value="<%= checkOutsToday[i].reservation_id %>">
-                                    <input type="hidden" name="action" value="Out">
-                                    <button type="submit" class="bg-red-500 text-white px-4 py-2 rounded-lg">Check-out</button>
+                                    <input type="hidden" name="reservation_id" value="<%= checkInsToday[i].reservation_id %>">
+                                    <input type="hidden" name="action" value="In">
+                                    <button type="submit" class="transition self-center text-xs lg:text-sm font-bold uppercase
+                                        bg-red-600 hover:bg-red-800
+                                        text-stone-50 hover:text-stone-100
+                                        drop-shadow rounded-md px-3 py-2">⏳ Check in</button>
                                 </form>
                             </dd>
-                        </div>
                         <% } else { %>
-                        <div class="mt-2 mb-4">
                             <dt class="text-stone-500">Status</dt>
-                            <dd class="col-span-2">Checked <%= checkOutsToday[i].status %></dd>
-                        </div>
+                            <dd class="">
+                                <span class="self-center text-xs lg:text-sm font-bold uppercase py-2">
+                                    ✔️ Checked <%= checkInsToday[i].status %>
+                                </span>
+                            </dd>
+                        <% } %>
+                    </div> 
+                </div>
+            </dl>
+        <% } %>
+
+        <h3 class="text-xl mt-10">Check-outs</h3>
+        <% for (let i=0; i < checkOutsToday.length; i++) { %>
+            <dl class="">
+                <div class="my-8 px-4 grid grid-cols-3 md:grid-cols-7 items-center gap-3 bg-stone-100 rounded-md drop-shadow">
+                    <div class="mt-2 mb-4 col-span-2 row-start-1 col-start-1">
+                        <dt class="text-stone-500">Name</dt>
+                        <dd class="">
+                            <%= formatText(checkOutsToday[i].f_name) + ' ' +
+                                formatText(checkOutsToday[i].l_name) %>
+                        </dd>
+                    </div>
+                    <div class="mt-2 mb-4 row-start-2 md:row-start-1">
+                        <dt class="text-stone-500">Nights</dt>
+                        <dd class="">
+                            <%= checkOutsToday[i].num_nights %>
+                        </dd>
+                    </div>
+                    <div class="mt-2 mb-4 row-start-2 md:row-start-1">
+                        <dt class="text-stone-500">RV Size</dt>
+                        <dd class="">
+                            <%= formatText(checkOutsToday[i].site_type_name) %>
+                        </dd>
+                    </div>
+                    <div class="mt-2 mb-4 row-start-2 md:row-start-1">
+                        <dt class="text-stone-500">Site #</dt>
+                        <dd class="">
+                            <%= checkOutsToday[i].site_number %>
+                        </dd>
+                    </div>
+                    <div class="mt-2 mb-4 row-start-1 col-start-3 col-span-1 md:col-span-2 md:col-start-6">
+                        <% if (checkOutsToday[i].status !='Out' ) { %>
+                            <dt class="text-stone-500">Action Needed</dt>
+                            <dd class="">
+                                <form method="POST">
+                                    <input type="hidden" name="reservation_id" value="<%= checkOutsToday[i].reservation_id %>">
+                                    <input type="hidden" name="action" value="Out">
+                                    <button type="submit" class="transition self-center text-xs lg:text-sm font-bold uppercase
+                                        bg-red-600 hover:bg-red-800
+                                        text-stone-50 hover:text-stone-100
+                                        drop-shadow rounded-md px-3 py-2">⏳ Check out</button>
+                                </form>
+                            </dd>
+                        <% } else { %>
+                            <dt class="text-stone-500">Status</dt>
+                            <dd class="">
+                                <span class="self-center text-xs lg:text-sm font-bold uppercase py-2">
+                                    ✔️ Checked <%= checkOutsToday[i].status %>
+                                </span>
+                            </dd>
                         <% } %>
                     </div>
-                </dl>
-                <% } %>
-        </div>
-    </main>
+                </div>
+            </dl>
+        <% } %>
+    </div>
+</main>
 
-    <%- include('../layout/footer'); %>
+<%- include('../layout/footer'); %>

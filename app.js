@@ -11,6 +11,7 @@ var indexRouter = require('./routes/index');
 
 // Admin Pages
 var adminReportRouter = require('./routes/admin/report'); // Daily Report Page
+var adminSearchRouter = require('./routes/admin/search'); // Reservations Search Page
 
 // Authentication Pages
 var loginRouter = require('./routes/authentication/login'); // Login page
@@ -72,6 +73,7 @@ app.use('/', indexRouter);
 
 // Admin Pages
 app.use('/admin/report', adminReportRouter);
+app.use('/admin/search', adminSearchRouter);
 
 // Authentication Pages
 app.use('/login', loginRouter);

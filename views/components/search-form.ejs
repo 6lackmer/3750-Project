@@ -1,0 +1,16 @@
+<div class="max-w-5xl mx-auto bg-stone-50 rounded-lg drop-shadow px-10 py-8 mb-12">
+    <h3 class="">Search Reservations</h3>
+    <form action="/admin/search" method="post">
+        <div class="flex flex-row flex-wrap gap-4 justify-between">
+            <div class="flex-grow">
+                <input class="w-full block rounded-md border-0 ring-2 ring-inset ring-stone-300 focus:ring-2 focus:ring-inset focus:ring-lime-600 py-2 px-3" 
+                type="email" id="email" name="email" placeholder="Enter a customer's email address to see their reservations" required />
+            </div>
+            <button type="submit" class="transition text-xs lg:text-sm font-bold uppercase 
+                    whitespace-nowrap align-baseline
+                    bg-lime-600 hover:bg-lime-800
+                    text-stone-50 hover:text-stone-100
+                    drop-shadow-md rounded-md px-3 py-2">Search Reservations</button>
+        </div>
+    </form>
+</div>
