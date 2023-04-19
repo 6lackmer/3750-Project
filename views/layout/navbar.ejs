@@ -1,19 +1,32 @@
 <header class="bg-blend-multiply mx-auto w-full bg-lime-900 text-stone-50 md:py-1">
-    <div class="container mx-auto flex flex-col md:flex-row flex-nowrap justify-between">
+    <div class="container mx-auto flex flex-row flex-nowrap justify-between">
         <div class="flex flex-row flex-nowrap justify-between content-center">
             <h1 class="title text-2xl lg:text-3xl self-center mx-4 my-3">
                 <a href="/" class="hover:underline">FamCamp</a>
             </h1>
             <% if (locals.session.loggedIn) { %>
-                <a href="/reservation" class="transition self-center font-bold uppercase
+                <a href="/reservation" class="hidden lg:inline-block transition self-center font-bold uppercase
                     bg-yellow-300 hover:bg-yellow-500
                     text-stone-700 hover:text-stone-800
                     drop-shadow-md rounded-md px-5 py-3 m-2">New Reservation</a>
             <% } %>
         </div>
-        <div class="flex flex-row flex-nowrap content-center justify-center items-center gap-x-4 mx-3 my-2 md:my-0">
+        <div class="flex flex-row flex-nowrap content-center justify-center items-center gap-x-2 lg:gap-x-4 mx-3 my-2 md:my-0">
             <% if (locals.session.loggedIn && locals.session.user.account_type === `employee`) { %>
-                <a href="/admin/report" class="self-center hover:underline">Daily Report</a>
+                <a href="/admin/report" class="hidden lg:inline-block self-center hover:underline">Daily Report</a>
+                <form action="/admin/search" method="post"
+                    class="flex flex-row flex-nowrap content-center justify-center items-center mx-3 my-2 md:my-0" >
+                    <input class="w-full block rounded-md border-0 rounded-r-none text-sm text-stone-800
+                            ring-2 ring-inset ring-stone-300 focus:ring-2 focus:ring-inset focus:ring-yellow-500 py-2 px-3" 
+                        type="email" id="email" name="email" placeholder="Find reservations by email..." required>
+                    <button type="submit" class="transition self-center items-center whitespace-nowrap
+                            text-xs lg:text-sm font-bold uppercase
+                            bg-yellow-300 hover:bg-yellow-500
+                            text-stone-700 hover:text-stone-800
+                            drop-shadow-md rounded-md rounded-l-none pr-3 pl-2 py-2">
+                            <svg fill="none" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 fill-gray-900 hover:fill-gray-900"><path d="M20.47 21.53a.75.75 0 1 0 1.06-1.06l-1.06 1.06Zm-9.97-4.28a6.75 6.75 0 0 1-6.75-6.75h-1.5a8.25 8.25 0 0 0 8.25 8.25v-1.5ZM3.75 10.5a6.75 6.75 0 0 1 6.75-6.75v-1.5a8.25 8.25 0 0 0-8.25 8.25h1.5Zm6.75-6.75a6.75 6.75 0 0 1 6.75 6.75h1.5a8.25 8.25 0 0 0-8.25-8.25v1.5Zm11.03 16.72-5.196-5.197-1.061 1.06 5.197 5.197 1.06-1.06Zm-4.28-9.97c0 1.864-.755 3.55-1.977 4.773l1.06 1.06A8.226 8.226 0 0 0 18.75 10.5h-1.5Zm-1.977 4.773A6.727 6.727 0 0 1 10.5 17.25v1.5a8.226 8.226 0 0 0 5.834-2.416l-1.061-1.061Z"></path></svg>
+                    </button>
+                </form>
             <% } %>
             <div class="relative">
                 <% if (locals.session.loggedIn) { %>
@@ -34,6 +47,14 @@
                             bg-white text-gray-800 rounded-md shadow-lg ring-1 
                             ring-black ring-opacity-5 focus:outline-none">
                         <div class="px-1 py-1">
+                            <% if (locals.session.loggedIn && locals.session.user.account_type === `employee`) { %>
+                                <a class="lg:hidden hover:bg-lime-600 hover:text-stone-50 flex rounded-md items-center w-full px-2 py-2 text-sm" href="/admin/report" role="none">
+                                    Daily Report
+                                </a>
+                            <% } %>
+                            <a class="lg:hidden hover:bg-lime-600 hover:text-stone-50 flex rounded-md items-center w-full px-2 py-2 text-sm" href="/reservation" role="none">
+                                New Reservation
+                            </a>
                             <a class="hover:bg-lime-600 hover:text-stone-50 flex rounded-md items-center w-full px-2 py-2 text-sm" href="/history" role="none">
                                 My Reservations
                             </a>

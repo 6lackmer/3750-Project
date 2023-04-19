@@ -1,0 +1,59 @@
+<%- include('../layout/header'); %>
+<% 
+    function formatDate(date) {
+        var jsDate = new Date(Date.parse(date + 'T00:00:00-07:00'));
+        const options = { year: 'numeric', month: 'short', day: 'numeric' };
+        const test = jsDate.toLocaleDateString('en-US', options);
+        console.log(test);
+        return test;
+    }
+
+    function formatText(str) {
+        str = str.replace(/_/g, ' ' );
+        return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
+    }
+
+    function getStatus(status) {
+        return status === '' ? 'Reserved' : status;
+    }
+%>
+
+<main class="container mx-auto md:my-8 lg:my-10 px-3 py-4">
+    <%- include('../components/search-form'); %>
+
+    <div class="max-w-5xl mx-auto bg-stone-50 rounded-lg drop-shadow px-10 py-8">
+        <dl class="">
+            <h2 class="subtitle text-5xl">Reservations</h2>
+            <h3 class="text-2xl"><%= searchObj.email %></h3>
+            
+            <% for (const reservation of reservations) { %>
+            <dl class="">
+                <div class="my-8 grid grid-cols-3 md:grid-cols-6 items-center gap-x-8 px-4 bg-stone-100 rounded-md drop-shadow">
+                    <div class="mt-2 mb-4">
+                        <dt class="text-stone-500">Start Date</dt>
+                        <dd class="col-span-2"><%= formatDate(reservation.start_date) %></dd>
+                    </div>
+                    <div class="mt-2 mb-4">
+                        <dt class="text-stone-500">Nights</dt>
+                        <dd class="col-span-2"><%= reservation.num_nights %></dd>
+                    </div>
+                    <div class="mt-2 mb-4">
+                        <dt class="text-stone-500">RV Size</dt>
+                        <dd class="col-span-2"><%= formatText(reservation.site_type_name) %></dd>
+                    </div>
+                    <div class="mt-2 mb-4">
+                        <dt class="text-stone-500">Status</dt>
+                        <dd class="col-span-2"><%= getStatus(reservation.status) %></dd>
+                    </div>
+                    <div class="mt-2 mb-4 col-span-2">
+                        <a href="/reservation-details?reservation_id=<%= reservation.reservation_id %>" class="transition self-center text-xs lg:text-sm font-bold uppercase
+                            bg-lime-600 hover:bg-lime-800 text-stone-50 hover:text-stone-100
+                            drop-shadow hover:drop-shadow-md rounded-md px-3 py-2">Reservation Details</a
+                    </div>
+                </div>
+            </dl>
+        <% } %>
+    </div>
+</main>
+
+<%- include('../layout/footer'); %>
