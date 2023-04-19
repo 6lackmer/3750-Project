@@ -3,9 +3,8 @@
     function formatDate(date) {
         var jsDate = new Date(Date.parse(date + 'T00:00:00-07:00'));
         const options = { year: 'numeric', month: 'short', day: 'numeric' };
-        const test = jsDate.toLocaleDateString('en-US', options);
-        console.log(test);
-        return test;
+        const formattedDate = jsDate.toLocaleDateString('en-US', options);
+        return formattedDate;
     }
 
     function formatText(str) {
