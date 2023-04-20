@@ -17,6 +17,13 @@
             <div class="max-w-5xl mx-auto bg-stone-50 rounded-lg drop-shadow px-10 py-8">
                 <h2 class="subtitle text-5xl">Reservation summary</h2>
                 <p class="mt-2 mb-8">You're almost there! Just enter your payment information and the reservation is yours.</p>
+
+                <%if (locals.message) { %>
+                    <p id="error_message" class="mt-2 mb-4 p-3 bg-red-200 border-l-4 border-red-600">
+                        <%= locals.message %>
+                    </p>
+                <% } %>
+                
                 <div class="flex flex-row flex-wrap md:flex-nowrap justify-between divide-y md:divide-y-0 md:divide-x divide-stone-200">
                     <div class="w-full md:w-2/5 flex flex-col justify-start pb-5 md:pb-0 md:pr-6 lg:pr-10">
                         <div class="mb-3">

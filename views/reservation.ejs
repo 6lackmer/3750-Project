@@ -2,12 +2,18 @@
 
     <div class="flex-grow bg-cover bg-center p-4" style="background-image: url('/images/sunset.jpg');">
         <main class="container mx-auto md:my-8 lg:my-10 px-3 py-4">
-            <div class="max-w-5xl mx-auto bg-stone-50 rounded-lg drop-shadow px-10 py-8">
+            <div class="max-w-xl mx-auto bg-stone-50 rounded-lg drop-shadow px-10 py-8">
                 <h2 class="subtitle text-5xl">Make a reservation today.</h2>
                 <p class="mt-2 mb-8">
                     You fight for your country but you don't have to fight for a spot in our gorgeous park!
                 </p>
                 
+                <%if (locals.message) { %>
+                    <p id="error_message" class="mt-2 mb-4 p-3 bg-red-200 border-l-4 border-red-600">
+                        <%= locals.message %>
+                    </p>
+                <% } %>
+
                 <%- include('components/reservation-form'); %>
             </div>
         </main>
