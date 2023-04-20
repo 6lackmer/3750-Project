@@ -69,20 +69,24 @@ router.post('/', function(req, res, next) {
         } else {
             reservationObj.cardholder_name = rows[0][0].f_name + " " + rows[0][0].l_name;
 
+            let message = "";
             // Validate Input
             if (arrivalDate = "" || arrivalDate < currentDate) {
                 console.log("reservation.js: Date Issue");
                 invalidInput = true;
+                message += "Please enter a valid date. ";
             } else if (numNights < 1) {
                 console.log("reservation.js: Duration Issue");
+                message += "Please enter a valid number of nights. ";
             } else if (site_type == "") {
                 console.log("reservation.js: Site Issue");
                 invalidInput = true;
+                message += "There was an issue booking your site. Please call us for assistance or choose a different trailer size.";
             }
 
             if (invalidInput) { // Invalid Input.  Request User Input
                 console.log("reservation.js: Form not complete");
-                res.render('reservation', { message: "Please Fill in All Fields Correctly" });
+                res.render('reservation', { reservationObj, message });
             } else { // Valid Input
                 console.log("reservation.js: Input valid.  Query Database for reservations by date and site size");
 
